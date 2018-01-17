@@ -1,10 +1,15 @@
 require 'sinatra'
 require 'sinatra/reloader' if development?
 require 'tilt/erubis'
+require 'FileUtils'
 
 class FlightTrackApp < Sinatra::Application
 
   get '/' do
-    'ok'
+    redirect '/FlightTrackApp'
+  end
+
+  get '/FlightTrackApp' do
+
   end
 end
