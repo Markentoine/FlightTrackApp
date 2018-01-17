@@ -12,11 +12,23 @@ class FlightTrackApp < Sinatra::Application
     enable :erb, escape_html: true
   end
 
+  helpers do
+
+  end
+
   get '/' do
     redirect '/FlightTrackApp'
   end
 
   get '/FlightTrackApp' do
-    erb :layout
+    erb :landing
+  end
+
+  post '/FlightTrackApp/users/sign_in' do
+
+  end
+
+  post '/FlightTrackApp/users/sign_up' do
+
   end
 end

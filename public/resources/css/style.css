@@ -3,3 +3,7 @@ html {
 	color: black;
 	background-color: white;
 }
+
+div {
+	border: 0.1rem solid red;
+}
