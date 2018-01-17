@@ -2,13 +2,19 @@
 <html>
 <head>
 	<title>Flight Track App</title>
-	<link rel="stylesheet" type="text/css" href="../resources/css/reset.css">
-	<link rel="stylesheet" type="text/css" href="../resources/css/style.css">
+	<link rel="stylesheet" type="text/css" href="../public/resources/css/reset.css">
+	<link rel="stylesheet" type="text/css" href="../public/resources/css/style.css">
 </head>
 <body>
   <header>
     <h1>Track Your Flight</h1>
-    <div class="message">Display messages here</div>
+    <div class="message">
+      <% if session[:success] %>
+        <p class="success"><%= session.delete(:success) %></p>
+      <% elsif session[:alert] %>
+        <p class="alert"><%= session.delete(:alert) %></p>
+      <% end %>
+    </div>
     <nav>
     	<ul>
     		<li></li>
