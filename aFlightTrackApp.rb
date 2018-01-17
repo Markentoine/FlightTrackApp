@@ -10,6 +10,6 @@ class FlightTrackApp < Sinatra::Application
   end
 
   get '/FlightTrackApp' do
-
+    erb :layout
   end
 end

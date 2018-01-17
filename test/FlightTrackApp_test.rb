@@ -23,7 +23,7 @@ class TestFlightTrackApp < Minitest::Test
   end
 
   def test_landing_page
-    get '/FlighTrackApp'
+    get '/FlightTrackApp'
     assert_equal(200, last_response.status)
     assert_includes(last_response.body, 'Track Your Flight')
     assert_includes(last_response.body, 'Sign in')
