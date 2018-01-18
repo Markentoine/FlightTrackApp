@@ -16,9 +16,16 @@
       <% end %>
     </div>
     <nav>
-    	<ul>
-    		<li></li>
-    	</ul>
+    	<% unless session[:signed] %>
+    	  <form action="/FlightTrackApp/users/sign" method="get">
+    	  	<button type="submit" value="Sign in">Sign in</button>
+    	  	<button type="submit" value="Register">Register</button>
+    	  </form>
+    	<% else %>
+    	  	<form action="/FlightTrackApp" method="get">
+    	  		<button type="submit" value="Sign out"></button>
+    	  	</form>
+    	<% end %>
     </nav>
   </header>
   <%== yield %>

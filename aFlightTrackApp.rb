@@ -131,6 +131,10 @@ class FlightTrackApp < Sinatra::Application
     erb :landing
   end
 
+  get '/FlightTrackApp/users/sign' do
+    erb :sign
+  end
+
   post '/FlightTrackApp/users/sign_in' do
     if @authorized_users.keys.include?(params[:username]) &&
       BCrypt::Password.new(@authorized_users[params[:username]][:password]) == params[:password]
@@ -141,7 +145,7 @@ class FlightTrackApp < Sinatra::Application
     else
       session[:alert] = "Invalid Credentials"
       status 422
-      erb :landing
+      erb :sign
     end
   end
 
@@ -152,19 +156,19 @@ class FlightTrackApp < Sinatra::Application
     confirmation_error = confirmation_inputs(@users_infos[1..4])
     if @users_infos.any? { |info| info == '' }
       session[:alert] = 'Please, fill all the fields, thank you.'
-      erb :landing
+      erb :sign
     elsif confirmation_error
       session[:alert] = confirmation_error
-      erb :landing
+      erb :sign
     elsif @invalid_infos.empty?  # success
       create_user(@users_infos)
-      session[:success] = 'Thank you for signing up! You can now sign in and try to be less...'
+      session[:success] = 'Thank you for signing up!'
       redirect '/FlightTrackApp'
     else
       session[:alert] = "Sorry but some informations are incorrect. Please check #{ @invalid_infos.join(', ') }."
       invalid_password = @invalid_infos.include?(:password)
       session[:hints] = hints_for_correct_password if invalid_password
-      erb :landing
+      erb :sign
     end
   end
 
