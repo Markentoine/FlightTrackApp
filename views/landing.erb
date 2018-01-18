@@ -1,1 +1,26 @@
-<div class="container">A flight</div>
+<div class="container">Some flights (map with some routes)</div>
+<div class="container">
+  <h2>Which one?</h2>
+  <form action="/FlightTrackApp/search_flight" method="post">
+    <div id="flight_from">
+      <fieldset>
+        <legend>Flight from</legend>
+        <input type="text" name="from_country" value="country">
+        <input type="text" name="from_town" value="town">
+        <input type="text" name="from_airport" value="airport">
+      </fieldset>
+    </div>
+    <div id="flight_to">
+      <fieldset>
+        <legend>Flight to</legend>
+        <input type="text" name="to_country" value="country">
+        <input type="text" name="to_town" value="town">
+        <input type="text" name="to_airport" value="airport">
+      </fieldset>
+    </div>
+    <button type="submit">Take off</button>
+  </form>
+</div>
+<div class="container">
+  <h2>Results</h2>
+</div>

@@ -141,12 +141,19 @@ class FlightTrackApp < Sinatra::Application
       session[:success] = "Welcome #{params[:username]}!"
       session[:username] = params[:username]
       session[:signed] = true
-      redirect '/FlightTrackApp/user_page'
+      redirect '/FlightTrackApp'
     else
       session[:alert] = "Invalid Credentials"
       status 422
       erb :sign
     end
+  end
+
+  post '/FlightTrackApp/users/signout' do
+    session[:signed] = false
+    session[:user] = nil
+    session[:success] = 'You have been signed out.'
+    redirect '/FlightTrackApp'
   end
 
   post '/FlightTrackApp/users/sign_up' do

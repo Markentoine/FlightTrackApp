@@ -2,8 +2,8 @@
 <html>
 <head>
 	<title>Flight Track App</title>
-	<link rel="stylesheet" type="text/css" href="../public/resources/css/reset.css">
-	<link rel="stylesheet" type="text/css" href="../public/resources/css/style.css">
+	<link rel="stylesheet" type="text/css" href="../resources/css/reset.css">
+	<link rel="stylesheet" type="text/css" href="../resources/css/style.css">
 </head>
 <body>
   <header>
@@ -22,8 +22,8 @@
     	  	<button type="submit" value="Register">Register</button>
     	  </form>
     	<% else %>
-    	  	<form action="/FlightTrackApp" method="get">
-    	  		<button type="submit" value="Sign out"></button>
+    	  	<form action="/FlightTrackApp/users/signout" method="post">
+    	  		<button type="submit" value="Sign out">Sign out</button>
     	  	</form>
     	<% end %>
     </nav>

@@ -7,3 +7,16 @@ html {
 div {
 	border: 0.1rem solid red;
 }
+
+header{
+	display: flex;
+}
+
+header h1{
+	font-size: 3rem;
+}
+
+nav{
+	display: flex;
+	margin-left: auto;
+}
