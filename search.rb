@@ -1,8 +1,14 @@
 require 'pg'
 
 class Search
-  def initialize
+  def initialize(logger)
     @db = PG.connect(dbname: 'flights')
+    @logger = logger
+  end
+
+  def query(statement, *params)
+    @logger.info "#{statement}: #{params}"
+    @db.exec_params(statement, params)
   end
   # attr_accessor :from_country, :from_town, :from_airport,
   #               :to_country, :to_town, :to_airport
