@@ -1,10 +1,9 @@
 require 'bcrypt'
 require 'rfc822'
 require 'sinatra'
-require 'sinatra/reloader' if development?
 require 'sinatra/content_for'
 require 'tilt/erubis'
-require 'FileUtils'
+require 'fileutils'
 require 'yaml'
 
 require_relative('./user.rb')
@@ -16,6 +15,12 @@ class FlightTrackApp < Sinatra::Application
     enable :sessions
     set :secret_sessions, 'not a good secret'
     set :erb, escape_html: true
+  end
+
+  configure(:development) do
+    require 'sinatra/reloader'
+    also_reload 'search'
+    also_reload 'user.rb'
   end
 
   helpers do
@@ -62,15 +67,16 @@ class FlightTrackApp < Sinatra::Application
     def hints_for_correct_password
       beginning_message = 'your password must contain at least'
       @errors_in_password.map do |error|
-        if error == :length
+        case error
+        when :length
           "#{beginning_message}" + ' 8 characters long.'
-        elsif error == :digit
+        when :digit
           "#{beginning_message}" + ' one digit.'
-        elsif error == :downcase
+        when :downcase
           "#{beginning_message}" + ' one downcased letter.'
-        elsif error == :upcase
+        when :upcase
           "#{beginning_message}" + ' one upcased letter.'
-        elsif error == :specialchar
+        when :specialchar
           "#{beginning_message}" + ' one special character : &#*@'
         end
       end
