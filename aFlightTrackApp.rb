@@ -136,6 +136,12 @@ class FlightTrackApp < Sinatra::Application
     @invalid_infos ||= []
     @authorized_users = YAML.load_file(File.join(@data_path, 'users/authorized_users.yml'))
     session[:signed] ||= false
+
+    @search = Search.new(logger)
+  end
+
+  after do
+    @search.disconnect
   end
 
   get '/' do
