@@ -43,7 +43,7 @@ class FlightTrackApp < Sinatra::Application
                       password: valid_password?(password),
                       email: valid_email?(email) }
       if validations.values.all? { |value| value == true }
-        [] # all inputs valid
+        [] # all inputs are valid
       else
         validations.select { |_, value| value == false }.keys # allows to know which field(s) cause(s) error.
       end
@@ -197,6 +197,30 @@ class FlightTrackApp < Sinatra::Application
       session[:hints] = hints_for_correct_password if invalid_password
       erb :sign
     end
+  end
+
+  get '/FlightTrackApp/airports' do
+    erb :airports
+  end
+
+  post '/FlightTrackApp/searchairport' do
+
+  end
+
+  get '/FlightTrackApp/airlines' do
+    erb :airlines
+  end
+
+  post '/FlightTrackApp/searchairline' do
+
+  end
+
+  get '/FlightTrackApp/routes' do
+    erb :routes
+  end
+
+  post 'FlightTrackApp/searchroute' do
+
   end
 
   get '/FlightTrackApp/userpage' do
