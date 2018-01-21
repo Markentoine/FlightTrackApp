@@ -83,8 +83,7 @@ class FlightTrackApp < Sinatra::Application
     end
 
     def valid_password?(password)
-      @errors_in_password = errors_in_password(password)
-      @errors_in_password.empty?
+      errors_in_password(password).empty?
     end
 
     def valid_email?(email)
