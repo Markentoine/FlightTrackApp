@@ -6,8 +6,8 @@ require 'tilt/erubis'
 require 'fileutils'
 require 'yaml'
 
-require_relative('./user.rb')
-require_relative('./search.rb')
+require_relative 'user.rb'
+require_relative 'search.rb'
 
 class FlightTrackApp < Sinatra::Application
 
@@ -19,7 +19,7 @@ class FlightTrackApp < Sinatra::Application
 
   configure(:development) do
     require 'sinatra/reloader'
-    also_reload 'search'
+    also_reload 'search.rb'
     also_reload 'user.rb'
   end
 
