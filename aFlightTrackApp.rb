@@ -156,7 +156,7 @@ class FlightTrackApp < Sinatra::Application
     erb :sign
   end
 
-  post '/FlightTrackApp/users/sign_in' do
+  post '/FlightTrackApp/users/signin' do
     if @authorized_users.keys.include?(params[:username]) &&
       BCrypt::Password.new(@authorized_users[params[:username]][:password]) == params[:password]
       session[:success] = "Welcome #{params[:username]}!"
@@ -177,7 +177,7 @@ class FlightTrackApp < Sinatra::Application
     redirect '/FlightTrackApp'
   end
 
-  post '/FlightTrackApp/users/sign_up' do
+  post '/FlightTrackApp/users/signup' do
     @users_infos = [params[:username], params[:password], params[:email],
                     params[:confirm_password], params[:confirm_email]]
     @invalid_infos = invalid_inputs(@users_infos[0..2])
@@ -200,7 +200,7 @@ class FlightTrackApp < Sinatra::Application
     end
   end
 
-  get '/FlightTrackApp/user_page' do
+  get '/FlightTrackApp/userpage' do
     'user page'
   end
 end
