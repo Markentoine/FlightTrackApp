@@ -2,8 +2,16 @@ require 'pg'
 
 class Search
   def initialize(logger)
-    @db = PG.connect(dbname: 'flights')
+    @db = if Sinatra::Base.production?
+            PG.connect(ENV['DATABASE_URL'])
+          else
+            PG.connect(dbname: "flights")
+          end
     @logger = logger
+  end
+
+  def disconnect
+    @db.close
   end
 
   def query(statement, *params)
