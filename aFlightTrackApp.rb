@@ -200,6 +200,10 @@ class FlightTrackApp < Sinatra::Application
     end
   end
 
+  post '/FlightTrackApp/searchflight' do
+
+  end
+
   get '/FlightTrackApp/userpage' do
     'user page'
   end

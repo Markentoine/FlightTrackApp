@@ -4,19 +4,49 @@ html {
 	background-color: white;
 }
 
-div {
-	border: 0.1rem solid red;
+div.container {
+  border: 1px solid #FC7D7D;
 }
 
 header{
-	display: flex;
+  display: flex;
 }
 
 header h1{
-	font-size: 3rem;
+  font-size: 3rem;
 }
 
 nav{
-	display: flex;
-	margin-left: auto;
+  display: flex;
+  margin-left: auto;
+}
+
+
+/**=============
+  Landing Page
+=============**/
+form div {
+  padding: .5em;
+}
+
+div.flightsearch input {
+  display: block;
+  padding: .5em;
+  width: 25em;
+}
+
+.ui-autocomplete {
+  display: block;
+  width: 20em;
+  background-color: white;
+  border: 1px solid black;
+}
+
+.ui-state-active {
+  display: block;
+  background-color: #7DA7FC;
+}
+
+.ui-helper-hidden-accessible {
+  display: none;
 }
