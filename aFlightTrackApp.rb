@@ -36,7 +36,7 @@ class FlightTrackApp < Sinatra::Application
     validations = { username: valid_username?(username),
                     password: valid_password?(password) }
 
-    validations.select { |_, value| value == false }.keys 
+    validations.select { |_, value| value == false }.keys
     # allows to know which field(s) cause(s) error. If all values are true, this statement returns [].
   end
 
@@ -74,32 +74,31 @@ class FlightTrackApp < Sinatra::Application
       end
     end
   end
- 
-    def create_user(infos) # have to refactor : split and simple methods
-      @list_users ||= retrieve_users
-      username, uncrypted_password, email = *infos
-      encrypted_password = encrypt_password(uncrypted_password)
-      user_infos = { username => { password: encrypted_password, email: email } }
-      updated_list = @list_users.merge(user_infos)
-      File.write(Pathname(path), updated_list.to_yaml)
-      session[:user] = User.new(username, email, password) # create a user in the session
-    end
 
-    def encrypt_password(password)
-      BCrypt::Password.create(uncrypted_password).to_s
-    end
+  def create_user(infos) # have to refactor : split and simple methods
+    @list_users ||= retrieve_users
+    username, uncrypted_password, email = *infos
+    encrypted_password = encrypt_password(uncrypted_password)
+    user_infos = { username => { password: encrypted_password, email: email } }
+    updated_list = @list_users.merge(user_infos)
+    File.write(Pathname(path), updated_list.to_yaml)
+    session[:user] = User.new(username, email, password) # create a user in the session
+  end
 
-    def retrieve_users
-      path = File.join(@data_path, 'users/authorized_users.yml')
-      YAML.load_file(path)
-    end
+  def encrypt_password(password)
+    BCrypt::Password.create(uncrypted_password).to_s
+  end
 
-    def data_path
-      if ENV["RACK_ENV"] == "test"
-        File.expand_path('../test/data', __FILE__)
-      else
-        File.expand_path('../public/data', __FILE__)
-      end
+  def retrieve_users
+    path = File.join(@data_path, 'users/authorized_users.yml')
+    YAML.load_file(path)
+  end
+
+  def data_path
+    if ENV["RACK_ENV"] == "test"
+      File.expand_path('../test/data', __FILE__)
+    else
+      File.expand_path('../public/data', __FILE__)
     end
   end
 
@@ -145,7 +144,7 @@ class FlightTrackApp < Sinatra::Application
   post '/FlightTrackApp/users/signin' do
     username = params[:username]
     password = params[:password]
-    
+
     if @users.valid_credentials?(username, password)
       session[:success] = "Welcome #{params[:username]}!"
       session[:username] = params[:username]
@@ -166,7 +165,7 @@ class FlightTrackApp < Sinatra::Application
   end
 
   post '/FlightTrackApp/users/signup' do
-    @users_infos = [params[:username], params[:password], 
+    @users_infos = [params[:username], params[:password],
                     params[:confirm_password]]
     @invalid_infos = invalid_inputs(@users_infos)
 
@@ -185,7 +184,7 @@ class FlightTrackApp < Sinatra::Application
     elsif !@invalid_infos.empty?
       session[:alert] = "Sorry but some informations are incorrect. Please check #{ @invalid_infos.join(', ') }."
       invalid_password = @invalid_infos.include?(:password)
-      
+
       if invalid_password
         errors = errors_in_password(params[:password])
         session[:hints] = hints_for_correct_password(errors)
@@ -200,11 +199,6 @@ class FlightTrackApp < Sinatra::Application
       status 302
       redirect '/FlightTrackApp'
     end
-  end
-
-
-  post '/FlightTrackApp/searchflight' do
-    
   end
 
   get '/FlightTrackApp/airports' do
