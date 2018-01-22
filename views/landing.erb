@@ -1,4 +1,29 @@
 <div class="container">Some flights (map with some routes)</div>
+
+<div class="container">
+  <h2>Which one?</h2>
+
+  <form action="/FlightTrackApp/searchflight" method="post">
+    <div class="flightsearch">
+      <fieldset>
+        <legend>Flight from</legend>
+        <input id="flightfrom" type="text" name="from" placeholder="airport name or city">
+        <p id="result"><%== p @search.autocomplete_airport_list(params[:from]) %></p>
+<!--    <input type="text" name="date_departure" value="date">
+        <input type="text" name="time_departure" value="time"> -->
+      </fieldset>
+    </div>
+
+    <div class="flightsearch">
+      <fieldset>
+        <legend>Flight to</legend>
+        <input type="text" name="to" placeholder="airport name or city">
+<!--    <input type="text" name="date_arrival" value="date">
+        <input type="text" name="time_arrival" value="time"> -->
+      </fieldset>
+    </div>
+    <button type="submit">Take off</button>
+
 <div>
   <div><h2>You are curious about</h2></div>
   <form action="/FlightTrackApp/airports" method="get">
@@ -10,5 +35,34 @@
   <form action="/FlightTrackApp/routes" method="get">
     <button type="submit">ROUTES</button>
   </form>
+
 </div>
 
+<div class="container">
+  <h2>Results</h2>
+</div>
+
+<script>
+  $(document).ajaxSuccess(function() {
+    console.log( "Triggered ajaxSuccess handler." );
+  });
+
+  $(document).ready(function() {
+    $("#flightfrom").keyup(function() {
+      var input = $(this).val();
+
+      $.get("/FlightTrackApp", $(this).serialize());
+      $("#result").load("/FlightTrackApp?from=" + $(this).val() + " #result");
+      p <%== params[:from] %>
+      
+      console.log("/FlightTrackApp?from=" + $(this).val() + " #result");
+
+      $(this).autocomplete({
+        source: <%== p @search.autocomplete_airport_list(params[:from]) %>
+      });
+    });
+  });
+</script>
+
+<!-- SELECT (iata || ' ' || trim(trailing ' Airport' from name) || ', ' || city) FROM airports;
+ -->
