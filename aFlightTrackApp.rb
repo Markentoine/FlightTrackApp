@@ -74,12 +74,32 @@ class FlightTrackApp < Sinatra::Application
       end
     end
   end
+ 
+    def create_user(infos) # have to refactor : split and simple methods
+      @list_users ||= retrieve_users
+      username, uncrypted_password, email = *infos
+      encrypted_password = encrypt_password(uncrypted_password)
+      user_infos = { username => { password: encrypted_password, email: email } }
+      updated_list = @list_users.merge(user_infos)
+      File.write(Pathname(path), updated_list.to_yaml)
+      session[:user] = User.new(username, email, password) # create a user in the session
+    end
 
-  def data_path
-    if ENV["RACK_ENV"] == "test"
-      File.expand_path('../test/data', __FILE__)
-    else
-      File.expand_path('../public/data', __FILE__)
+    def encrypt_password(password)
+      BCrypt::Password.create(uncrypted_password).to_s
+    end
+
+    def retrieve_users
+      path = File.join(@data_path, 'users/authorized_users.yml')
+      YAML.load_file(path)
+    end
+
+    def data_path
+      if ENV["RACK_ENV"] == "test"
+        File.expand_path('../test/data', __FILE__)
+      else
+        File.expand_path('../public/data', __FILE__)
+      end
     end
   end
 
@@ -182,7 +202,32 @@ class FlightTrackApp < Sinatra::Application
     end
   end
 
+
   post '/FlightTrackApp/searchflight' do
+    
+  end
+
+  get '/FlightTrackApp/airports' do
+    erb :airports
+  end
+
+  post '/FlightTrackApp/searchairport' do
+
+  end
+
+  get '/FlightTrackApp/airlines' do
+    erb :airlines
+  end
+
+  post '/FlightTrackApp/searchairline' do
+
+  end
+
+  get '/FlightTrackApp/routes' do
+    erb :routes
+  end
+
+  post 'FlightTrackApp/searchroute' do
 
   end
 

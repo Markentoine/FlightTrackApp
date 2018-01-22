@@ -49,4 +49,11 @@ div.flightsearch input {
 
 .ui-helper-hidden-accessible {
   display: none;
+
+	display: flex;
+	margin-left: auto;
+}
+
+.container{
+	
 }
