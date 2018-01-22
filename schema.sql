@@ -14,3 +14,9 @@ CREATE TABLE airports (
   type varchar(32),
   source varchar(11)
 );
+
+CREATE TABLE users (
+  id serial PRIMARY KEY,
+  username varchar(32) NOT NULL,
+  password char(60) NOT NULL
+);

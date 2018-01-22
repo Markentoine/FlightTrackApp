@@ -7,6 +7,7 @@
       <fieldset>
         <legend>Flight from</legend>
         <input id="flightfrom" type="text" name="from" placeholder="airport name or city">
+        <p id="result"><%== p @search.autocomplete_airport_list(params[:from]) %></p>
 <!--    <input type="text" name="date_departure" value="date">
         <input type="text" name="time_departure" value="time"> -->
       </fieldset>
@@ -29,17 +30,27 @@
   <h2>Results</h2>
 </div>
 
-
 <script>
-  $( function() {
-    var availableTags = [
-    "Java",
-    "HelloWorld",
-    "Javascript"
-    ];
+  $(document).ajaxSuccess(function() {
+    console.log( "Triggered ajaxSuccess handler." );
+  });
 
-    $("#flightfrom").autocomplete({
-      source: availableTags,
+  $(document).ready(function() {
+    $("#flightfrom").keyup(function() {
+      var input = $(this).val();
+
+      $.get("/FlightTrackApp", $(this).serialize());
+      $("#result").load("/FlightTrackApp?from=" + $(this).val() + " #result");
+      p <%== params[:from] %>
+      
+      console.log("/FlightTrackApp?from=" + $(this).val() + " #result");
+
+      $(this).autocomplete({
+        source: <%== p @search.autocomplete_airport_list(params[:from]) %>
+      });
     });
-  })
+  });
 </script>
+
+<!-- SELECT (iata || ' ' || trim(trailing ' Airport' from name) || ', ' || city) FROM airports;
+ -->

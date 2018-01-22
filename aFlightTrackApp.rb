@@ -6,8 +6,14 @@ require 'tilt/erubis'
 require 'fileutils'
 require 'yaml'
 
-require_relative 'user.rb'
+require_relative 'users.rb'
 require_relative 'search.rb'
+
+configure(:development) do
+  require 'sinatra/reloader'
+  also_reload 'search.rb'
+  also_reload 'users.rb'
+end
 
 class FlightTrackApp < Sinatra::Application
 
@@ -17,107 +23,67 @@ class FlightTrackApp < Sinatra::Application
     set :erb, escape_html: true
   end
 
-  configure(:development) do
-    require 'sinatra/reloader'
-    also_reload 'search.rb'
-    also_reload 'user.rb'
+  def confirmation_inputs(inputs)
+    password, confirm_password = inputs[1], inputs[2]
+    if password != confirm_password
+      return 'Please check, the password confirmation is not correct.'
+    end
+    false
+  end
+
+  def invalid_inputs(inputs)
+    username, password, _ = *inputs
+    validations = { username: valid_username?(username),
+                    password: valid_password?(password) }
+
+    validations.select { |_, value| value == false }.keys 
+    # allows to know which field(s) cause(s) error. If all values are true, this statement returns [].
+  end
+
+  def valid_username?(username)
+    @users.username_available?(username)
+  end
+
+  def valid_password?(password)
+    errors_in_password(password).empty?
+  end
+
+  def errors_in_password(password)
+    requirements = { length: password.match(/.{8,}/),
+                     digit: password.match(/\d{1,}/),
+                     downcase: password.match(/[a-z]{1,}/),
+                     upcase: password.match(/[A-Z]{1,}/),
+                     specialchar: password.match(/[!&#@*]{1,}/) }
+    requirements.select { |_, result| result.nil? }.keys
+  end
+
+  def hints_for_correct_password(errors_in_password)
+    beginning_message = 'your password must contain at least'
+    errors_in_password.map do |error|
+      case error
+      when :length
+        "#{beginning_message}" + ' 8 characters long.'
+      when :digit
+        "#{beginning_message}" + ' one digit.'
+      when :downcase
+        "#{beginning_message}" + ' one downcased letter.'
+      when :upcase
+        "#{beginning_message}" + ' one upcased letter.'
+      when :specialchar
+        "#{beginning_message}" + ' one special character : !&#*@'
+      end
+    end
+  end
+
+  def data_path
+    if ENV["RACK_ENV"] == "test"
+      File.expand_path('../test/data', __FILE__)
+    else
+      File.expand_path('../public/data', __FILE__)
+    end
   end
 
   helpers do
-
-    def confirmation_inputs(inputs)
-      password, confirm_password = inputs[0], inputs[2]
-      email, confirm_email = inputs[1], inputs[3]
-      if password != confirm_password
-        'Please check, the password confirmation is not correct.'
-      elsif email != confirm_email
-        'Please check, the email confirmation is not correct.'
-      else
-         false
-      end
-    end
-
-    def invalid_inputs(inputs)
-      username, password, email = *inputs
-      validations = { username: valid_username?(username),
-                      password: valid_password?(password),
-                      email: valid_email?(email) }
-      if validations.values.all? { |value| value == true }
-        [] # all inputs valid
-      else
-        validations.select { |_, value| value == false }.keys # allows to know which field(s) cause(s) error.
-      end
-    end
-
-    def valid_username?(current_username)
-      path = File.join(@data_path, 'users/authorized_users.yml')
-      list_of_users = YAML.load_file(Pathname(path))
-      list_of_users.keys.none? { |user| user == current_username }
-    end
-
-    def errors_in_password(password)
-      requirements = { length: password.match(/.{8,}/),
-                       digit: password.match(/\d{1,}/),
-                       downcase: password.match(/[a-z]{1,}/),
-                       upcase: password.match(/[A-Z]{1,}/),
-                       specialchar: password.match(/[&#@*]{1,}/) }
-      requirements.select { |_, result| result.nil? }.keys
-    end
-
-    def hints_for_correct_password
-      beginning_message = 'your password must contain at least'
-      @errors_in_password.map do |error|
-        case error
-        when :length
-          "#{beginning_message}" + ' 8 characters long.'
-        when :digit
-          "#{beginning_message}" + ' one digit.'
-        when :downcase
-          "#{beginning_message}" + ' one downcased letter.'
-        when :upcase
-          "#{beginning_message}" + ' one upcased letter.'
-        when :specialchar
-          "#{beginning_message}" + ' one special character : &#*@'
-        end
-      end
-    end
-
-    def valid_password?(password)
-      @errors_in_password = errors_in_password(password)
-      @errors_in_password.empty?
-    end
-
-    def valid_email?(email)
-      email.is_email?
-    end
-
-    def create_user(infos) # have to refactor : split and simple methods
-      @list_users ||= retrieve_users
-      username, uncrypted_password, email = *infos
-      encrypted_password = encrypt_password(uncrypted_password)
-      user_infos = { username => { password: encrypted_password, email: email } }
-      updated_list = @list_users.merge(user_infos)
-      File.write(Pathname(path), updated_list.to_yaml)
-      session[:user] = User.new(username, email, password) # create a user in the session
-    end
-
-    def encrypt_password(password)
-      BCrypt::Password.create(uncrypted_password).to_s
-    end
-
-    def retrieve_users
-      path = File.join(@data_path, 'users/authorized_users.yml')
-      YAML.load_file(path)
-    end
-
-    def data_path
-      if ENV["RACK_ENV"] == "test"
-        File.expand_path('../test/data', __FILE__)
-      else
-        File.expand_path('../public/data', __FILE__)
-      end
-    end
-
     def self.data_path
       if ENV["RACK_ENV"] == "test"
         File.expand_path('../test/data', __FILE__)
@@ -134,10 +100,10 @@ class FlightTrackApp < Sinatra::Application
   before do
     @data_path = data_path
     @invalid_infos ||= []
-    @authorized_users = YAML.load_file(File.join(@data_path, 'users/authorized_users.yml'))
     session[:signed] ||= false
 
     @search = Search.new(logger)
+    @users = Users.new(logger)
   end
 
   after do
@@ -157,8 +123,10 @@ class FlightTrackApp < Sinatra::Application
   end
 
   post '/FlightTrackApp/users/signin' do
-    if @authorized_users.keys.include?(params[:username]) &&
-      BCrypt::Password.new(@authorized_users[params[:username]][:password]) == params[:password]
+    username = params[:username]
+    password = params[:password]
+    
+    if @users.valid_credentials?(username, password)
       session[:success] = "Welcome #{params[:username]}!"
       session[:username] = params[:username]
       session[:signed] = true
@@ -178,25 +146,39 @@ class FlightTrackApp < Sinatra::Application
   end
 
   post '/FlightTrackApp/users/signup' do
-    @users_infos = [params[:username], params[:password], params[:email],
-                    params[:confirm_password], params[:confirm_email]]
-    @invalid_infos = invalid_inputs(@users_infos[0..2])
-    confirmation_error = confirmation_inputs(@users_infos[1..4])
-    if @users_infos.any? { |info| info == '' }
+    @users_infos = [params[:username], params[:password], 
+                    params[:confirm_password]]
+    @invalid_infos = invalid_inputs(@users_infos)
+
+    confirmation_error = confirmation_inputs(@users_infos)
+
+    if @users_infos.any? { |info| info.strip.empty? }
       session[:alert] = 'Please, fill all the fields, thank you.'
+
+      status 422
       erb :sign
     elsif confirmation_error
       session[:alert] = confirmation_error
+
+      status 422
       erb :sign
-    elsif @invalid_infos.empty?  # success
-      create_user(@users_infos)
-      session[:success] = 'Thank you for signing up!'
-      redirect '/FlightTrackApp'
-    else
+    elsif !@invalid_infos.empty?
       session[:alert] = "Sorry but some informations are incorrect. Please check #{ @invalid_infos.join(', ') }."
       invalid_password = @invalid_infos.include?(:password)
-      session[:hints] = hints_for_correct_password if invalid_password
+      
+      if invalid_password
+        errors = errors_in_password(params[:password])
+        session[:hints] = hints_for_correct_password(errors)
+      end
+
+      status 422
       erb :sign
+    else # success
+      @users.create_user(@users_infos)
+      session[:success] = 'Thank you for signing up!'
+
+      status 302
+      redirect '/FlightTrackApp'
     end
   end
 
