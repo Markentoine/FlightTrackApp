@@ -75,25 +75,6 @@ class FlightTrackApp < Sinatra::Application
     end
   end
 
-  def create_user(infos) # have to refactor : split and simple methods
-    @list_users ||= retrieve_users
-    username, uncrypted_password, email = *infos
-    encrypted_password = encrypt_password(uncrypted_password)
-    user_infos = { username => { password: encrypted_password, email: email } }
-    updated_list = @list_users.merge(user_infos)
-    File.write(Pathname(path), updated_list.to_yaml)
-    session[:user] = User.new(username, email, password) # create a user in the session
-  end
-
-  def encrypt_password(password)
-    BCrypt::Password.create(uncrypted_password).to_s
-  end
-
-  def retrieve_users
-    path = File.join(@data_path, 'users/authorized_users.yml')
-    YAML.load_file(path)
-  end
-
   def data_path
     if ENV["RACK_ENV"] == "test"
       File.expand_path('../test/data', __FILE__)
