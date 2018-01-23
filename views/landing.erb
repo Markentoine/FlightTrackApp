@@ -1,19 +1,20 @@
 <div class="container">Some flights (map with some routes)</div>
 
 <div class="container">
-  <h2>Which one?</h2>
 
 <div>
   <div><h2>You are curious about</h2></div>
-  <form action="/FlightTrackApp/airports" method="get">
-    <button type="submit">AIRPORTS</button>
-  </form>
-  <form action="/FlightTrackApp/airlines" method="get">
-    <button type="submit">AIRLINES</button>
-  </form>
-  <form action="/FlightTrackApp/routes" method="get">
-    <button type="submit">ROUTES</button>
-  </form>
+  <div>
+    <form action="/FlightTrackApp/airports" method="get">
+      <button type="submit">AIRPORTS</button>
+    </form>
+    <form action="/FlightTrackApp/airlines" method="get">
+      <button type="submit">AIRLINES</button>
+    </form>
+    <form action="/FlightTrackApp/routes" method="get">
+      <button type="submit">ROUTES</button>
+    </form>
+  </div>
 </div>
 
 <!-- SELECT (iata || ' ' || trim(trailing ' Airport' from name) || ', ' || city) FROM airports;
