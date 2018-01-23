@@ -52,6 +52,7 @@ class FlightTrackApp < Sinatra::Base
   before do
     @data_path = data_path
     @invalid_infos ||= []
+    session[:in_sign] = false
 
     @search = Search.new(logger)
     @users = Users.new(logger)
@@ -70,6 +71,7 @@ class FlightTrackApp < Sinatra::Base
   end
 
   get '/FlightTrackApp/users/sign' do
+    session[:in_sign] = true
     erb :sign
   end
 
