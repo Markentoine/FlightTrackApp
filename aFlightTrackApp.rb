@@ -119,7 +119,6 @@ class FlightTrackApp < Sinatra::Application
   before do
     @data_path = data_path
     @invalid_infos ||= []
-    session[:signed] ||= false
 
     @search = Search.new(logger)
     @users = Users.new(logger)
@@ -148,7 +147,6 @@ class FlightTrackApp < Sinatra::Application
     if @users.valid_credentials?(username, password)
       session[:success] = "Welcome #{params[:username]}!"
       session[:username] = params[:username]
-      session[:signed] = true
       redirect '/FlightTrackApp'
     else
       session[:alert] = "Invalid Credentials"
@@ -158,8 +156,7 @@ class FlightTrackApp < Sinatra::Application
   end
 
   post '/FlightTrackApp/users/signout' do
-    session[:signed] = false
-    session[:user] = nil
+    session[:username] = nil
     session[:success] = 'You have been signed out.'
     redirect '/FlightTrackApp'
   end
@@ -199,6 +196,11 @@ class FlightTrackApp < Sinatra::Application
       status 302
       redirect '/FlightTrackApp'
     end
+  end
+
+  get '/autocomplete' do
+    content_type :json
+    @search.autocomplete_airport_list(params[:query]).to_json
   end
 
   get '/FlightTrackApp/airports' do

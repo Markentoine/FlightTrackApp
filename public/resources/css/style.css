@@ -38,8 +38,9 @@ div.flightsearch input {
 .ui-autocomplete {
   display: block;
   width: 20em;
+  line-height: 1.3em;
   background-color: white;
-  border: 1px solid black;
+  border: 1px solid #808080;
 }
 
 .ui-state-active {
@@ -49,8 +50,6 @@ div.flightsearch input {
 
 .ui-helper-hidden-accessible {
   display: none;
-
-	display: flex;
 	margin-left: auto;
 }
 
