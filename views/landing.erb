@@ -9,8 +9,6 @@
         <legend>Flight from</legend>
         <input id="flightfrom" type="text" name="from" placeholder="airport name or city">
         <p id="result"><%== p @search.autocomplete_airport_list(params[:from]) %></p>
-<!--    <input type="text" name="date_departure" value="date">
-        <input type="text" name="time_departure" value="time"> -->
       </fieldset>
     </div>
 
@@ -18,8 +16,6 @@
       <fieldset>
         <legend>Flight to</legend>
         <input type="text" name="to" placeholder="airport name or city">
-<!--    <input type="text" name="date_arrival" value="date">
-        <input type="text" name="time_arrival" value="time"> -->
       </fieldset>
     </div>
     <button type="submit">Take off</button>
@@ -35,11 +31,6 @@
   <form action="/FlightTrackApp/routes" method="get">
     <button type="submit">ROUTES</button>
   </form>
-
-</div>
-
-<div class="container">
-  <h2>Results</h2>
 </div>
 
 <script>
