@@ -1,49 +1,6 @@
+<h2>Search Airports</h2>
+
 <div class="container">
-
-  <form action="/FlightTrackApp/searchflight" method="post">
-    <div class="flightsearch">
-      <fieldset>
-        <legend>Flight from</legend>
-        <input id="flightfrom" type="text" name="from" placeholder="airport name or city">
-      </fieldset>
-    </div>
-
-    <div class="flightsearch">
-      <fieldset>
-        <legend>Flight to</legend>
-        <input id="flightto" type="text" name="to" placeholder="airport name or city">
-      </fieldset>
-    </div>
-    <button type="submit">Take off</button>
-
-  </form>
-</div>
-
-<script>
-  $(document).ready(function() {
-    $("#flightfrom").keyup(function() {
-
-      $.getJSON("/autocomplete?query=" + $(this).val(), function(data) {
-        console.log(data);
-
-        $("#flightfrom").autocomplete({
-          source: data
-        });
-      });
-    });
-
-    $("#flightto").keyup(function() {
-
-      $.getJSON("/autocomplete?query=" + $(this).val(), function(data) {
-        console.log(data);
-
-        $("#flightto").autocomplete({
-          source: data
-        });
-      });
-    });
-  });
-</script>
   <form action="/FlightTrackApp/searchairport">
     <input type="text" name="from_country" placeholder="country">
     <input type="text" name="from_town" placeholder="town">
