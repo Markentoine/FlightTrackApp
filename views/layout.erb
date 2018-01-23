@@ -19,12 +19,13 @@
       <% end %>
     </div>
     <nav>
-    	<% unless session[:signed] %>
+    	<% unless session[:username] %>
     	  <form action="/FlightTrackApp/users/sign" method="get">
     	  	<button type="submit" value="Sign in">Sign in</button>
     	  	<button type="submit" value="Register">Register</button>
     	  </form>
     	<% else %>
+          <p>Signed in as <%= session[:username] %></p>
     	  	<form action="/FlightTrackApp/users/signout" method="post">
     	  		<button type="submit" value="Sign out">Sign out</button>
     	  	</form>
