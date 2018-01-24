@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<title>Flight Track App</title>
-	<link rel="stylesheet" type="text/css" href="../resources/css/reset.css">
-	<link rel="stylesheet" type="text/css" href="../resources/css/style.css">
+	<link rel="stylesheet" type="text/css" href="/resources/css/reset.css">
+	<link rel="stylesheet" type="text/css" href="/resources/css/style.css">
   <script src="/resources/javascript/jquery-3.3.1.min.js"></script>
   <script src="/resources/javascript/jquery-ui-1.12.1/jquery-ui.min.js"></script>
-
 </head>
+
 <body>
+
   <header>
-    <h1>Track Your Flight</h1>
+    <h1>Ground to Sky</h1>
+
     <div class="message">
       <% if session[:success] %>
         <p class="success"><%= session.delete(:success) %></p>
@@ -18,21 +21,25 @@
         <p class="alert"><%= session.delete(:alert) %></p>
       <% end %>
     </div>
+
     <nav>
-    	<% unless session[:username] %>
+    	<% if session[:in_sign] == false && session[:username].nil? %>
     	  <form action="/FlightTrackApp/users/sign" method="get">
     	  	<button type="submit" value="Sign in">Sign in</button>
     	  	<button type="submit" value="Register">Register</button>
     	  </form>
-    	<% else %>
+    	<% elsif session[:username] %>
           <p>Signed in as <%= session[:username] %></p>
     	  	<form action="/FlightTrackApp/users/signout" method="post">
     	  		<button type="submit" value="Sign out">Sign out</button>
     	  	</form>
     	<% end %>
     </nav>
+
   </header>
+
   <%== yield %>
+
   <footer></footer>
 </body>
 </html>
