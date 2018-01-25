@@ -1,6 +1,7 @@
 require 'bcrypt'
 require 'rfc822'
 require 'sinatra'
+require 'sinatra/base'
 require 'sinatra/content_for'
 require 'tilt/erubis'
 require 'fileutils'
@@ -8,6 +9,7 @@ require 'yaml'
 
 require_relative 'users.rb'
 require_relative 'search.rb'
+require_relative 'validations.rb'
 
 configure(:development) do
   require 'sinatra/reloader'
@@ -15,83 +17,14 @@ configure(:development) do
   also_reload 'users.rb'
 end
 
-class FlightTrackApp < Sinatra::Application
+class FlightTrackApp < Sinatra::Base
+
+  helpers Sinatra::Validations
 
   configure do
     enable :sessions
     set :secret_sessions, 'not a good secret'
     set :erb, escape_html: true
-  end
-
-  def confirmation_inputs(inputs)
-    password, confirm_password = inputs[1], inputs[2]
-    if password != confirm_password
-      return 'Please check, the password confirmation is not correct.'
-    end
-    false
-  end
-
-  def invalid_inputs(inputs)
-    username, password, _ = *inputs
-    validations = { username: valid_username?(username),
-                    password: valid_password?(password) }
-
-    validations.select { |_, value| value == false }.keys
-    # allows to know which field(s) cause(s) error. If all values are true, this statement returns [].
-  end
-
-  def valid_username?(username)
-    @users.username_available?(username)
-  end
-
-  def valid_password?(password)
-    errors_in_password(password).empty?
-  end
-
-  def errors_in_password(password)
-    requirements = { length: password.match(/.{8,}/),
-                     digit: password.match(/\d{1,}/),
-                     downcase: password.match(/[a-z]{1,}/),
-                     upcase: password.match(/[A-Z]{1,}/),
-                     specialchar: password.match(/[!&#@*]{1,}/) }
-    requirements.select { |_, result| result.nil? }.keys
-  end
-
-  def hints_for_correct_password(errors_in_password)
-    beginning_message = 'your password must contain at least'
-    errors_in_password.map do |error|
-      case error
-      when :length
-        "#{beginning_message}" + ' 8 characters long.'
-      when :digit
-        "#{beginning_message}" + ' one digit.'
-      when :downcase
-        "#{beginning_message}" + ' one downcased letter.'
-      when :upcase
-        "#{beginning_message}" + ' one upcased letter.'
-      when :specialchar
-        "#{beginning_message}" + ' one special character : !&#*@'
-      end
-    end
-  end
-
-  def create_user(infos) # have to refactor : split and simple methods
-    @list_users ||= retrieve_users
-    username, uncrypted_password, email = *infos
-    encrypted_password = encrypt_password(uncrypted_password)
-    user_infos = { username => { password: encrypted_password, email: email } }
-    updated_list = @list_users.merge(user_infos)
-    File.write(Pathname(path), updated_list.to_yaml)
-    session[:user] = User.new(username, email, password) # create a user in the session
-  end
-
-  def encrypt_password(password)
-    BCrypt::Password.create(uncrypted_password).to_s
-  end
-
-  def retrieve_users
-    path = File.join(@data_path, 'users/authorized_users.yml')
-    YAML.load_file(path)
   end
 
   def data_path
@@ -119,6 +52,7 @@ class FlightTrackApp < Sinatra::Application
   before do
     @data_path = data_path
     @invalid_infos ||= []
+    session[:in_sign] = false
 
     @search = Search.new(logger)
     @users = Users.new(logger)
@@ -137,6 +71,7 @@ class FlightTrackApp < Sinatra::Application
   end
 
   get '/FlightTrackApp/users/sign' do
+    session[:in_sign] = true
     erb :sign
   end
 
@@ -179,7 +114,7 @@ class FlightTrackApp < Sinatra::Application
       status 422
       erb :sign
     elsif !@invalid_infos.empty?
-      session[:alert] = "Sorry but some informations are incorrect. Please check #{ @invalid_infos.join(', ') }."
+      session[:alert] = "Some informations are incorrect. Please check #{ @invalid_infos.join(', ') }."
       invalid_password = @invalid_infos.include?(:password)
 
       if invalid_password
@@ -191,7 +126,7 @@ class FlightTrackApp < Sinatra::Application
       erb :sign
     else # success
       @users.create_user(@users_infos)
-      session[:success] = 'Thank you for signing up!'
+      session[:success] = 'Thank you for register. Please sign in.'
 
       status 302
       redirect '/FlightTrackApp'
