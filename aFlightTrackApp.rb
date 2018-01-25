@@ -200,7 +200,17 @@ class FlightTrackApp < Sinatra::Application
 
   get '/autocomplete' do
     content_type :json
-    @search.autocomplete_airport_list(params[:query]).to_json
+
+    query = 
+      params.select do |field, value|
+        value.is_a?(String) && value.length > 1
+      end
+
+    field, input_string = query.to_a.flatten
+
+    autocomplete_method = "autocomplete_#{field}_list"
+    
+    @search.send(autocomplete_method, input_string).to_json
   end
 
   get '/FlightTrackApp/airports' do
