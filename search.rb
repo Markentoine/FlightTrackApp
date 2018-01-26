@@ -20,19 +20,41 @@ class Search
   end
 
   def autocomplete_airport_list(string)
-    return [] if string.nil? || string.length <= 2
+    return [] if valid_string?(string)
 
     sql = <<~SQL
-      SELECT id, 
+      SELECT  
             ((CASE WHEN iata IS NULL THEN ' ' ELSE iata END)|| 
-              ' ' || 
-            trim(trailing ' Airport' from name) || 
+            ' ' || 
+            name || 
              ', ' || 
             city) 
         FROM airports 
        WHERE iata ILIKE $1 OR name ILIKE $1 OR city ILIKE $1;
     SQL
 
-    query(sql, "#{string}%").column_values(1).compact
+    query(sql, "#{string}%").column_values(0).compact
+  end
+
+  def autocomplete_country_list(string)
+    return [] if valid_string?(string)
+
+    sql = "SELECT DISTINCT country FROM airports WHERE country ILIKE $1"
+
+    query(sql, "#{string}%").column_values(0).compact
+  end
+
+  def autocomplete_city_list(string)
+    return [] if valid_string?(string)
+
+    sql = "SELECT DISTINCT city FROM airports WHERE city ILIKE $1"
+
+    query(sql, "#{string}%").column_values(0).compact
+  end
+
+  private
+
+  def valid_string?(string)
+    string.nil? || string.length <= 2
   end
 end

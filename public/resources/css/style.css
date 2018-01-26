@@ -32,7 +32,19 @@ form div {
 div.flightsearch input {
   display: block;
   padding: .5em;
+  font-size: 1.2em;
   width: 25em;
+}
+
+form.airportsearch input {
+  display: inline-block;
+  width: 15em;
+}
+
+form.airportsearch button {
+  margin-top: 1em;
+  height: 3.2em;
+  width: 8em;
 }
 
 .ui-autocomplete {

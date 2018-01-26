@@ -24,8 +24,7 @@
   $(document).ready(function() {
     $("#flightfrom").keyup(function() {
 
-      $.getJSON("/autocomplete?query=" + $(this).val(), function(data) {
-        console.log(data);
+      $.getJSON("/autocomplete?airport=" + $(this).val(), function(data) {
 
         $("#flightfrom").autocomplete({
           source: data
@@ -35,8 +34,7 @@
 
     $("#flightto").keyup(function() {
 
-      $.getJSON("/autocomplete?query=" + $(this).val(), function(data) {
-        console.log(data);
+      $.getJSON("/autocomplete?airport=" + $(this).val(), function(data) {
 
         $("#flightto").autocomplete({
           source: data

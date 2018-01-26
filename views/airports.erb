@@ -1,9 +1,34 @@
 <h2>Search Airports</h2>
 
-<div class="container">
-  <form action="/FlightTrackApp/searchairport">
-    <input type="text" name="from_country" placeholder="country">
-    <input type="text" name="from_town" placeholder="town">
+<div class="flightsearch">
+  <form class="airportsearch" action="/FlightTrackApp/searchairport">
+    <input id="country" type="text" name="from_country" placeholder="country">
+
+    <input id="city" type="text" name="from_city" placeholder="city">
     <button type="submit">Search</button>
   </form>
 </div>
+
+<script>
+  $(document).ready(function() {
+  $("#country").keyup(function() {
+
+    $.getJSON("/autocomplete?country=" + $(this).val(), function(data) {
+
+      $("#country").autocomplete({
+        source: data
+      });
+    });
+  });
+
+  $("#city").keyup(function() {
+
+    $.getJSON("/autocomplete?city=" + $(this).val(), function(data) {
+
+      $("#city").autocomplete({
+        source: data
+      });
+    });
+  });
+});
+</script>
