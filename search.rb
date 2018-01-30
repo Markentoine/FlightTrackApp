@@ -23,13 +23,13 @@ class Search
     return [] if valid_string?(string)
 
     sql = <<~SQL
-      SELECT  
-            ((CASE WHEN iata IS NULL THEN ' ' ELSE iata END)|| 
-            ' ' || 
-            name || 
-             ', ' || 
-            city) 
-        FROM airports 
+      SELECT
+            ((CASE WHEN iata IS NULL THEN ' ' ELSE iata END)||
+            ' ' ||
+            name ||
+             ', ' ||
+            city)
+        FROM airports
        WHERE iata ILIKE $1 OR name ILIKE $1 OR city ILIKE $1;
     SQL
 

@@ -137,7 +137,7 @@ class FlightTrackApp < Sinatra::Base
     content_type :json
 
     query =
-      params.select do |_field, value|
+      params.select do |field, value|
         value.is_a?(String) && value.length > 1
       end
 
@@ -152,6 +152,11 @@ class FlightTrackApp < Sinatra::Base
   end
 
   post '/FlightTrackApp/searchairport' do
+    country = params[:from_country].to_s
+    city = params[:from_city].to_s
+    results = @search.query(%q{SELECT name FROM airports WHERE country = $1 AND city = $2;}, country, city)
+    session[:results] = results.field_values('name')
+    redirect '/FlightTrackApp/airports'
   end
 
   get '/FlightTrackApp/airlines' do

@@ -9,6 +9,14 @@
   </form>
 </div>
 
+<% if session[:results] %>
+  <ul>
+    <% session.delete(:results).each do |airport| %>
+    <li><%= airport %></li>
+    <% end %>
+  </ul>
+<% end %>
+
 <script>
   $(document).ready(function() {
   $("#country").keyup(function() {
