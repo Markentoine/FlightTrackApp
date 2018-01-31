@@ -154,16 +154,8 @@ class FlightTrackApp < Sinatra::Base
   post '/FlightTrackApp/searchairport' do
     country = params[:from_country].to_s
     city = params[:from_city].to_s
-    results = @search.query(%q{SELECT id,
-                                      name
-                               FROM
-                                      airports
-                               WHERE
-                                      country = $1
-                               AND
-                                      city = $2;},
-                             country, city)
-    session[:results] = results.values
+    
+    session[:results] = @search.query_airports(country, city)
     redirect '/FlightTrackApp/airports'
   end
 

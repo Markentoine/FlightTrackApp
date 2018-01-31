@@ -60,7 +60,18 @@ class Search
        WHERE id = $1
     SQL
 
-    p query(sql, id).values
+    query(sql, id).values
+  end
+
+  def query_airports(country, city)
+    sql = <<~SQL
+      SELECT id, name
+        FROM airports
+       WHERE country = $1
+         AND city = $2
+    SQL
+
+    query(sql, country, city).values
   end
 
   private
