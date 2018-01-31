@@ -5,7 +5,6 @@ require 'sinatra/base'
 require 'sinatra/reloader'
 require 'sinatra/content_for'
 require 'tilt/erubis'
-require 'yaml'
 
 require_relative 'users.rb'
 require_relative 'search.rb'
