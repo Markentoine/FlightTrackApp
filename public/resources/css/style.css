@@ -68,3 +68,11 @@ form.airportsearch button {
 .container{
 	
 }
+
+/**=============
+  Detailed Infos
+=============**/
+
+table, th, td {
+    border: 1px solid black;
+}
