@@ -138,13 +138,13 @@ class FlightTrackApp < Sinatra::Base
 
     query =
       params.select do |field, value|
-        value.is_a?(String) && value.length > 1
+        value.is_a?(String) && value.length >= 1
       end
 
-    field, input_string = query.to_a.flatten
+    field, *inputs = query.to_a.flatten
 
     autocomplete_method = "autocomplete_#{field}_list"
-    @search.send(autocomplete_method, input_string).to_json
+    @search.send(autocomplete_method, *inputs).to_json
   end
 
   get '/FlightTrackApp/airports' do
@@ -154,7 +154,7 @@ class FlightTrackApp < Sinatra::Base
   post '/FlightTrackApp/searchairport' do
     country = params[:from_country].to_s
     city = params[:from_city].to_s
-    
+
     session[:results] = @search.query_airports(country, city)
     redirect '/FlightTrackApp/airports'
   end
