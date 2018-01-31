@@ -55,7 +55,7 @@ id,name,city,country,iata,icao,latitude,longitude,altitude,timezone,dst,tz,type,
 54,Inuvik Mike Zubko Airport,Inuvik,Canada,YEV,CYEV,68.30419922,-133.4830017,224,-7,A,America/Edmonton,airport,OurAirports
 55,Iqaluit Airport,Iqaluit,Canada,YFB,CYFB,63.75640106,-68.55580139,110,-5,A,America/Toronto,airport,OurAirports
 56,Fredericton Airport,Fredericton,Canada,YFC,CYFC,45.8689003,-66.53720093,68,-4,A,America/Halifax,airport,OurAirports
-57,Forestville Airport,Forestville,Canada,,CYFE,48.74610138,-69.09719849,293,-5,A,America/Toronto,airport,OurAirports
+57,Forestville Airport,Forestville,Canada,YFE,CYFE,48.74610138,-69.09719849,293,-5,A,America/Toronto,airport,OurAirports
 58,Flin Flon Airport,Flin Flon,Canada,YFO,CYFO,54.67810059,-101.6819992,997,-6,A,America/Winnipeg,airport,OurAirports
 59,Fort Resolution Airport,Fort Resolution,Canada,YFR,CYFR,61.18080139,-113.6900024,526,-7,A,America/Edmonton,airport,OurAirports
 60,Fort Simpson Airport,Fort Simpson,Canada,YFS,CYFS,61.7602005,-121.2369995,555,-7,A,America/Edmonton,airport,OurAirports
@@ -102,7 +102,7 @@ id,name,city,country,iata,icao,latitude,longitude,altitude,timezone,dst,tz,type,
 101,Prince Albert Glass Field,Prince Albert,Canada,YPA,CYPA,53.21419907,-105.6729965,1405,-6,N,America/Regina,airport,OurAirports
 102,Peace River Airport,Peace River,Canada,YPE,CYPE,56.22689819,-117.4469986,1873,-7,A,America/Edmonton,airport,OurAirports
 103,Southport Airport,Portage-la-prairie,Canada,YPG,CYPG,49.903099,-98.273817,885,-6,A,America/Winnipeg,airport,OurAirports
-104,Pitt Meadows Airport,Pitt Meadows,Canada,,CYPK,49.21609879,-122.7099991,11,-8,A,America/Vancouver,airport,OurAirports
+104,Pitt Meadows Airport,Pitt Meadows,Canada,YPK,CYPK,49.21609879,-122.7099991,11,-8,A,America/Vancouver,airport,OurAirports
 105,Pickle Lake Airport,Pickle Lake,Canada,YPL,CYPL,51.44639969,-90.21420288,1267,-5,A,America/Coral_Harbour,airport,OurAirports
 106,Port Menier Airport,Port Menier,Canada,YPN,CYPN,49.83639908,-64.28859711,167,-5,A,America/Toronto,airport,OurAirports
 107,Peterborough Airport,Peterborough,Canada,YPQ,CYPQ,44.22999954,-78.36329651,628,-5,A,America/Toronto,airport,OurAirports
@@ -204,7 +204,7 @@ id,name,city,country,iata,icao,latitude,longitude,altitude,timezone,dst,tz,type,
 204,CFB Greenwood,Greenwood,Canada,YZX,CYZX,44.9844017,-64.91690063,92,-4,A,America/Halifax,airport,OurAirports
 205,Faro Airport,Faro,Canada,ZFA,CZFA,62.20750046,-133.3760071,2351,-8,A,America/Vancouver,airport,OurAirports
 206,Fort Mcpherson Airport,Fort Mcpherson,Canada,ZFM,CZFM,67.40750122,-134.8609924,116,-7,A,America/Edmonton,airport,OurAirports
-207,Blida Airport,Blida,Algeria,,DAAB,36.50360107,2.814169884,535,1,N,Africa/Algiers,airport,OurAirports
+207,Blida Airport,Blida,Algeria,QLD,DAAB,36.50360107,2.814169884,535,1,N,Africa/Algiers,airport,OurAirports
 208,Bou Saada Airport,Bou Saada,Algeria,,DAAD,35.33250046,4.206389904,1506,1,N,Africa/Algiers,airport,OurAirports
 209,Soummam Airport,Bejaja,Algeria,BJA,DAAE,36.7120018,5.069920063,20,1,N,Africa/Algiers,airport,OurAirports
 210,Houari Boumediene Airport,Algier,Algeria,ALG,DAAG,36.69100189,3.215409994,82,1,N,Africa/Algiers,airport,OurAirports
