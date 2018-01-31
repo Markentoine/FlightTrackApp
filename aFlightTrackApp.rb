@@ -1,8 +1,8 @@
 require 'bcrypt'
 require 'fileutils'
 require 'rfc822'
-require 'sinatra'
 require 'sinatra/base'
+require 'sinatra/reloader'
 require 'sinatra/content_for'
 require 'tilt/erubis'
 require 'yaml'
@@ -11,14 +11,14 @@ require_relative 'users.rb'
 require_relative 'search.rb'
 require_relative 'validations.rb'
 
-configure(:development) do
-  require 'sinatra/reloader'
-  also_reload 'search.rb'
-  also_reload 'users.rb'
-end
-
 class FlightTrackApp < Sinatra::Base
   helpers Sinatra::Validations
+
+  configure(:development) do
+    register Sinatra::Reloader
+    also_reload 'search.rb'
+    also_reload 'users.rb'
+  end
 
   configure do
     enable :sessions
@@ -168,21 +168,7 @@ class FlightTrackApp < Sinatra::Base
   end
 
   get '/FlightTrackApp/detailsairport/:id' do |id|
-    id = id
-    @airport_infos = @search.query(%q{SELECT name,
-                                             city,
-                                             country,
-                                             iata,
-                                             icao,
-                                             latitude,
-                                             longitude,
-                                             altitude,
-                                             timezone
-                                      FROM
-                                             airports
-                                      WHERE
-                                             id = $1;}, id)
-    @airport_infos = @airport_infos.values
+    @airport_infos = @search.airport_details(id)
     @airport_infos = [:name, :city, :country, :iata, :icao, :latitude, :longitude, :altitude, :timezone].zip(*@airport_infos).to_h
     erb :detailairport
   end
