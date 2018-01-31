@@ -12,7 +12,10 @@
 <% if session[:results] %>
   <ul>
     <% session.delete(:results).each do |airport| %>
-    <li><%= airport %></li>
+    <li><form action="/FlightTrackApp/detailsairport/<%= airport[0] %>" method="get">
+          <button type="submit"><%= airport[1] %></button>
+        </form>
+    </li>
     <% end %>
   </ul>
 <% end %>
