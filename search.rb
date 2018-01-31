@@ -52,6 +52,17 @@ class Search
     query(sql, "#{string}%").column_values(0).compact
   end
 
+  def airport_details(id)
+    sql = <<~SQL
+      SELECT name, city, country, iata, icao, 
+             latitude, longitude, altitude,timezone
+        FROM airports
+       WHERE id = $1
+    SQL
+
+    p query(sql, id).values
+  end
+
   private
 
   def valid_string?(string)
