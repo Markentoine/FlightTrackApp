@@ -1,10 +1,10 @@
 require 'bcrypt'
+require 'fileutils'
 require 'rfc822'
 require 'sinatra'
 require 'sinatra/base'
 require 'sinatra/content_for'
 require 'tilt/erubis'
-require 'fileutils'
 require 'yaml'
 
 require_relative 'users.rb'
@@ -18,7 +18,6 @@ configure(:development) do
 end
 
 class FlightTrackApp < Sinatra::Base
-
   helpers Sinatra::Validations
 
   configure do
@@ -28,7 +27,7 @@ class FlightTrackApp < Sinatra::Base
   end
 
   def data_path
-    if ENV["RACK_ENV"] == "test"
+    if ENV['RACK_ENV'] == 'test'
       File.expand_path('../test/data', __FILE__)
     else
       File.expand_path('../public/data', __FILE__)
@@ -37,7 +36,7 @@ class FlightTrackApp < Sinatra::Base
 
   helpers do
     def self.data_path
-      if ENV["RACK_ENV"] == "test"
+      if ENV['RACK_ENV'] == 'test'
         File.expand_path('../test/data', __FILE__)
       else
         File.expand_path('../public/data', __FILE__)
@@ -84,7 +83,7 @@ class FlightTrackApp < Sinatra::Base
       session[:username] = params[:username]
       redirect '/FlightTrackApp'
     else
-      session[:alert] = "Invalid Credentials"
+      session[:alert] = 'Invalid Credentials'
       status 422
       erb :sign
     end
@@ -114,7 +113,8 @@ class FlightTrackApp < Sinatra::Base
       status 422
       erb :sign
     elsif !@invalid_infos.empty?
-      session[:alert] = "Some informations are incorrect. Please check #{ @invalid_infos.join(', ') }."
+      session[:alert] = "Some informations are incorrect.
+                         Please check #{@invalid_infos.join(', ')}."
       invalid_password = @invalid_infos.include?(:password)
 
       if invalid_password
@@ -136,7 +136,7 @@ class FlightTrackApp < Sinatra::Base
   get '/autocomplete' do
     content_type :json
 
-    query = 
+    query =
       params.select do |field, value|
         value.is_a?(String) && value.length > 1
       end
@@ -144,7 +144,6 @@ class FlightTrackApp < Sinatra::Base
     field, input_string = query.to_a.flatten
 
     autocomplete_method = "autocomplete_#{field}_list"
-    
     @search.send(autocomplete_method, input_string).to_json
   end
 
@@ -153,7 +152,39 @@ class FlightTrackApp < Sinatra::Base
   end
 
   post '/FlightTrackApp/searchairport' do
+    country = params[:from_country].to_s
+    city = params[:from_city].to_s
+    results = @search.query(%q{SELECT id,
+                                      name
+                               FROM
+                                      airports
+                               WHERE
+                                      country = $1
+                               AND
+                                      city = $2;},
+                             country, city)
+    session[:results] = results.values
+    redirect '/FlightTrackApp/airports'
+  end
 
+  get '/FlightTrackApp/detailsairport/:id' do |id|
+    id = id
+    @airport_infos = @search.query(%q{SELECT name,
+                                             city,
+                                             country,
+                                             iata,
+                                             icao,
+                                             latitude,
+                                             longitude,
+                                             altitude,
+                                             timezone
+                                      FROM
+                                             airports
+                                      WHERE
+                                             id = $1;}, id)
+    @airport_infos = @airport_infos.values
+    @airport_infos = [:name, :city, :country, :iata, :icao, :latitude, :longitude, :altitude, :timezone].zip(*@airport_infos).to_h
+    erb :detailairport
   end
 
   get '/FlightTrackApp/airlines' do
@@ -161,7 +192,6 @@ class FlightTrackApp < Sinatra::Base
   end
 
   post '/FlightTrackApp/searchairline' do
-
   end
 
   get '/FlightTrackApp/routes' do
@@ -169,7 +199,6 @@ class FlightTrackApp < Sinatra::Base
   end
 
   post 'FlightTrackApp/searchroute' do
-
   end
 
   get '/FlightTrackApp/userpage' do
