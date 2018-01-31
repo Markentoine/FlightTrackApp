@@ -1,2 +1,37 @@
 <div><h1>Detailed Informations about <%= @airport_infos[:name] %> in <%= @airport_infos[:city] %> (<%= @airport_infos[:country] %>)</h1></div>
-<p><%= @airport_infos %></p>
+<div>
+  <table>
+  	<tr>
+  		<th></th>
+  		<th><%= @airport_infos[:name] %></th>
+  	</tr>
+  	<tr>
+  		<td>IATA</td>
+  		<td><%= @airport_infos[:iata] %></td>
+  	</tr>
+  	<tr>
+  		<td>ICAO</td>
+  		<td><%= @airport_infos[:icao] %></td>
+  	</tr>
+  	<tr>
+  		<td>Latitude</td>
+  		<td><%= @airport_infos[:latitude] %></td>
+  	</tr>
+  	<tr>
+  		<td>Longitude</td>
+  		<td><%= @airport_infos[:longitude] %></td>
+  	</tr>
+  	<tr>
+  		<td>Altitude</td>
+  		<td><%= @airport_infos[:altitude] %></td>
+  	</tr>
+  	<tr>
+  		<td>Time zone</td>
+  		<td><%= @airport_infos[:timezone] %></td>
+  	</tr>
+  </table>
+</div>
+
+<% content_for :header_links do %>
+  <form action="/FlightTrackApp/airports" method="get"><button type="submit">New Airport Research</button></a>
+<% end %>
