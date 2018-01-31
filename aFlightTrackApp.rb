@@ -183,6 +183,7 @@ class FlightTrackApp < Sinatra::Base
                                       WHERE
                                              id = $1;}, id)
     @airport_infos = @airport_infos.values
+    @airport_infos = [:name, :city, :country, :iata, :icao, :latitude, :longitude, :altitude, :timezone].zip(*@airport_infos).to_h
     erb :detailairport
   end
 
