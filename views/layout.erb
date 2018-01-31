@@ -23,6 +23,9 @@
     </div>
 
     <nav>
+      <div>
+        <%== yield_content :header_links %>
+      </div>
     	<% if session[:in_sign] == false && session[:username].nil? %>
     	  <form action="/FlightTrackApp/users/sign" method="get">
     	  	<button type="submit" value="Sign in">Sign in</button>
