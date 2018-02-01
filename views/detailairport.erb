@@ -23,7 +23,7 @@
   	</tr>
   	<tr>
   		<td>Altitude</td>
-  		<td><%= @airport_infos[:altitude] %></td>
+  		<td><%= @airport_infos[:altitude] %> ft</td>
   	</tr>
   	<tr>
   		<td>Time zone</td>
@@ -34,6 +34,24 @@
 
 <div>
 	<iframe src="https://www.google.com/maps/embed/v1/view?key=AIzaSyCm-fNKdjRs0I-tsRVNZJshyA5qWfFsgng&center=<%= @airport_infos[:latitude] %>,<%= @airport_infos[:longitude] %>&zoom=14&maptype=satellite" width=800 height=500></iframe> 
+</div>
+
+<div>
+  <textarea row=50 cols="50">
+    <%= @summary %>
+  </textarea>
+</div>
+
+<div><% @images_wikimedia.each do |image_url| %>
+  <% if image_url.match(/.jpg/) %>
+  <ul>
+    <li>
+      <img src="<%= image_url %>" width=200 height=140>
+    </li>
+  </ul>
+  <% end %>
+  <% end %>
+  <p>Source : Wikipedia</p>
 </div>
 
 <% content_for :header_links do %>

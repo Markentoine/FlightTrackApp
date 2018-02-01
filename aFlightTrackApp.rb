@@ -4,6 +4,7 @@ require 'sinatra/content_for'
 require 'tilt/erubis'
 require 'bcrypt'
 require 'fileutils'
+require 'wikipedia'
 
 require_relative 'users.rb'
 require_relative 'search.rb'
@@ -162,6 +163,9 @@ class FlightTrackApp < Sinatra::Base
   get '/FlightTrackApp/detailsairport/:id' do |id|
     @airport_infos = @search.airport_details(id)
     @airport_infos = [:name, :city, :country, :iata, :icao, :latitude, :longitude, :altitude, :timezone].zip(*@airport_infos).to_h
+    wikipedia_page = Wikipedia.find(@airport_infos[:name])
+    @images_wikimedia = wikipedia_page.image_urls
+    @summary = wikipedia_page.summary
     erb :detailairport
   end
 
