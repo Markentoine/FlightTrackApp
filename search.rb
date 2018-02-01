@@ -52,7 +52,7 @@ class Search
 
   def airport_details(id)
     sql = <<~SQL
-      SELECT name, city, country, iata, icao, 
+      SELECT name, city, country, iata, icao,
              latitude, longitude, altitude,timezone
         FROM airports
        WHERE id = $1
