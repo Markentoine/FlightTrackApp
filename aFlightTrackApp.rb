@@ -152,7 +152,9 @@ class FlightTrackApp < Sinatra::Application
     country = params[:from_country].to_s
     city = params[:from_city].to_s
     results = @search.query(%q{SELECT id,
-                                      name
+                                      name,
+                                      latitude,
+                                      longitude
                                FROM
                                       airports
                                WHERE
@@ -160,7 +162,9 @@ class FlightTrackApp < Sinatra::Application
                                AND
                                       city = $2;},
                              country, city)
-    session[:results] = results.values
+    results = results.values
+    results = results.map { |airport_infos| [:id, :name, :latitude, :longitude].zip(airport_infos).to_h }
+    session[:results] = results
     redirect '/FlightTrackApp/airports'
   end
 

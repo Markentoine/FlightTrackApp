@@ -33,9 +33,8 @@
 </div>
 
 <div>
-	<img src="https://maps.googleapis.com/maps/api/staticmap?center=<%= @airport_infos[:latitude] %>,<%= @airport_infos[:longitude] %>&zoom=13&size=400x400&maptype=hybrid&key=AIzaSyCwSphWJCzmNw6LlcDF3aFXnjQ1pmquXj8">
+	<iframe src="https://www.google.com/maps/embed/v1/view?key=AIzaSyCm-fNKdjRs0I-tsRVNZJshyA5qWfFsgng&center=<%= @airport_infos[:latitude] %>,<%= @airport_infos[:longitude] %>&zoom=14&maptype=satellite" width=400 height=400></iframe> 
 </div>
-
 <% content_for :header_links do %>
   <form action="/FlightTrackApp/airports" method="get"><button type="submit">New Airport Research</button></a>
 <% end %>

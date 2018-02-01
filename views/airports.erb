@@ -11,9 +11,14 @@
 
 <% if session[:results] %>
   <ul>
-    <% session.delete(:results).each do |airport| %>
-    <li><form action="/FlightTrackApp/detailsairport/<%= airport[0] %>" method="get">
-          <button type="submit"><%= airport[1] %></button>
+    <% session.delete(:results).each do |airport_infos| %>
+    <li><form action="/FlightTrackApp/detailsairport/<%= airport_infos[:id] %>" method="get">
+          <button type="submit">
+            <div>
+              <img src="https://maps.googleapis.com/maps/api/staticmap?center=<%= airport_infos[:latitude] %>,<%= airport_infos[:longitude] %>&zoom=13&size=400x400&maptype=terrain&key=AIzaSyCwSphWJCzmNw6LlcDF3aFXnjQ1pmquXj8">
+            </div>
+          </button>
+          <h4><%= airport_infos[:name] %></h4>
         </form>
     </li>
     <% end %>
