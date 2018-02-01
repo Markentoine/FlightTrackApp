@@ -10,13 +10,15 @@ class Search
     @logger = logger
   end
 
-  def disconnect
-    @db.finish
-  end
+  def airport_details(id)
+    sql = <<~SQL
+      SELECT name, city, country, iata, icao,
+             latitude, longitude, altitude,timezone
+        FROM airports
+       WHERE id = $1
+    SQL
 
-  def query(statement, *params)
-    @logger.info "#{statement}: #{params}"
-    @db.exec_params(statement, params)
+    query(sql, id).values
   end
 
   def autocomplete_airport_list(string)
@@ -50,15 +52,13 @@ class Search
     query(sql, country,"#{city}%").column_values(0).compact
   end
 
-  def airport_details(id)
-    sql = <<~SQL
-      SELECT name, city, country, iata, icao,
-             latitude, longitude, altitude,timezone
-        FROM airports
-       WHERE id = $1
-    SQL
+  def disconnect
+    @db.finish
+  end
 
-    query(sql, id).values
+  def query(statement, *params)
+    @logger.info "#{statement}: #{params}"
+    @db.exec_params(statement, params)
   end
 
   def query_airports(country, city)
