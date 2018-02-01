@@ -95,6 +95,47 @@ form.airportsearch button {
   text-transform: uppercase;
 }
 
+.hero nav {
+  display: block;
+  float: right;
+  padding-right: 1em;
+  text-align: right;
+  position: absolute;
+  margin: auto;
+  top: 1em;
+  right: 0;
+}
+
+.hero form {
+  display: inline-block;
+  margin-right: .5em;
+}
+
+.hero nav button {
+  color: #F0F0F0;
+  font-size: 1em;
+  font-weight: 700;
+  padding: 15px;
+  text-transform: uppercase;
+  background-color: transparent;
+  border: none;
+}
+
+.hero nav button:hover {
+  color: #515151;
+  cursor: pointer;
+}
+
+.hero nav button.attention {
+  border: 1.5px solid #CFCFCF;
+  border-radius: 4px;
+}
+
+.hero nav button.attention:hover {
+  color: #515151;
+  background-color: #CFCFCF;
+}
+
 /**=============
   Autocomplete
 =============**/
