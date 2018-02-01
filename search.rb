@@ -44,17 +44,37 @@ class Search
     query(sql, "#{string}%").column_values(0).compact
   end
 
-  def autocomplete_city_list(string)
-    return [] if valid_string?(string)
+  def autocomplete_city_list(city, _, country)
+    sql = "SELECT DISTINCT city FROM airports WHERE country ILIKE $1 AND city ILIKE $2"
 
-    sql = "SELECT DISTINCT city FROM airports WHERE city ILIKE $1"
+    query(sql, country,"#{city}%").column_values(0).compact
+  end
 
-    query(sql, "#{string}%").column_values(0).compact
+  def airport_details(id)
+    sql = <<~SQL
+      SELECT name, city, country, iata, icao, 
+             latitude, longitude, altitude,timezone
+        FROM airports
+       WHERE id = $1
+    SQL
+
+    query(sql, id).values
+  end
+
+  def query_airports(country, city)
+    sql = <<~SQL
+      SELECT id, name
+        FROM airports
+       WHERE country = $1
+         AND city = $2
+    SQL
+
+    query(sql, country, city).values
   end
 
   private
 
   def valid_string?(string)
-    string.nil? || string.length <= 2
+    string.nil? || string.length < 2
   end
 end

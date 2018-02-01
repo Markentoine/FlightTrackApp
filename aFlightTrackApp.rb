@@ -1,21 +1,23 @@
-require 'bcrypt'
-require 'fileutils'
-require 'sinatra'
+require 'sinatra/base'
+require 'sinatra/reloader'
 require 'sinatra/content_for'
 require 'tilt/erubis'
+require 'bcrypt'
+require 'fileutils'
 
 require_relative 'users.rb'
 require_relative 'search.rb'
 require_relative 'validations.rb'
 
-configure(:development) do
-  require 'sinatra/reloader'
-  also_reload 'search.rb'
-  also_reload 'users.rb'
-end
-
-class FlightTrackApp < Sinatra::Application
+class FlightTrackApp < Sinatra::Base
+  helpers Sinatra::ContentFor
   helpers Sinatra::Validations
+
+  configure(:development) do
+    register Sinatra::Reloader
+    also_reload 'search.rb'
+    also_reload 'users.rb'
+  end
 
   configure do
     enable :sessions
@@ -135,13 +137,13 @@ class FlightTrackApp < Sinatra::Application
 
     query =
       params.select do |field, value|
-        value.is_a?(String) && value.length > 1
+        value.is_a?(String) && value.length >= 1
       end
 
-    field, input_string = query.to_a.flatten
+    field, *inputs = query.to_a.flatten
 
     autocomplete_method = "autocomplete_#{field}_list"
-    @search.send(autocomplete_method, input_string).to_json
+    @search.send(autocomplete_method, *inputs).to_json
   end
 
   get '/FlightTrackApp/airports' do
@@ -151,39 +153,13 @@ class FlightTrackApp < Sinatra::Application
   post '/FlightTrackApp/searchairport' do
     country = params[:from_country].to_s
     city = params[:from_city].to_s
-    results = @search.query(%q{SELECT id,
-                                      name,
-                                      latitude,
-                                      longitude
-                               FROM
-                                      airports
-                               WHERE
-                                      country = $1
-                               AND
-                                      city = $2;},
-                             country, city)
-    results = results.values
-    results = results.map { |airport_infos| [:id, :name, :latitude, :longitude].zip(airport_infos).to_h }
-    session[:results] = results
+
+    session[:results] = @search.query_airports(country, city)
     redirect '/FlightTrackApp/airports'
   end
 
   get '/FlightTrackApp/detailsairport/:id' do |id|
-    id = id
-    @airport_infos = @search.query(%q{SELECT name,
-                                             city,
-                                             country,
-                                             iata,
-                                             icao,
-                                             latitude,
-                                             longitude,
-                                             altitude,
-                                             timezone
-                                      FROM
-                                             airports
-                                      WHERE
-                                             id = $1;}, id)
-    @airport_infos = @airport_infos.values
+    @airport_infos = @search.airport_details(id)
     @airport_infos = [:name, :city, :country, :iata, :icao, :latitude, :longitude, :altitude, :timezone].zip(*@airport_infos).to_h
     erb :detailairport
   end
