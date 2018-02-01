@@ -33,7 +33,7 @@
 </div>
 
 <div>
-	<iframe src="https://www.google.com/maps/embed/v1/view?key=AIzaSyCm-fNKdjRs0I-tsRVNZJshyA5qWfFsgng&center=<%= @airport_infos[:latitude] %>,<%= @airport_infos[:longitude] %>&zoom=14&maptype=satellite" width=400 height=400></iframe> 
+	<iframe src="https://www.google.com/maps/embed/v1/view?key=AIzaSyCm-fNKdjRs0I-tsRVNZJshyA5qWfFsgng&center=<%= @airport_infos[:latitude] %>,<%= @airport_infos[:longitude] %>&zoom=14&maptype=satellite" width=800 height=500></iframe> 
 </div>
 <% content_for :header_links do %>
   <form action="/FlightTrackApp/airports" method="get"><button type="submit">New Airport Research</button></a>
