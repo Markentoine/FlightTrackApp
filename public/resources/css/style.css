@@ -21,6 +21,16 @@ nav{
   margin-left: auto;
 }
 
+/**=============
+    Layout
+=============**/
+
+header a {
+  font-size: 3em;
+  color: #081739;
+  text-decoration-line: none;
+}
+
 
 /**=============
   Landing Page
