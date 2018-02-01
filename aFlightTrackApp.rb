@@ -1,16 +1,16 @@
-require 'bcrypt'
-require 'fileutils'
-require 'rfc822'
 require 'sinatra/base'
 require 'sinatra/reloader'
 require 'sinatra/content_for'
 require 'tilt/erubis'
+require 'bcrypt'
+require 'fileutils'
 
 require_relative 'users.rb'
 require_relative 'search.rb'
 require_relative 'validations.rb'
 
 class FlightTrackApp < Sinatra::Base
+  helpers Sinatra::ContentFor
   helpers Sinatra::Validations
 
   configure(:development) do
