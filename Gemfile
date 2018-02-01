@@ -10,4 +10,5 @@ gem 'rack-test'
 gem 'simplecov'
 gem 'sinatra'
 gem 'sinatra-contrib'
+gem 'wikipedia-client'
 
