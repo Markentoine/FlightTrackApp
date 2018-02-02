@@ -80,7 +80,7 @@ class FlightTrackApp < Sinatra::Base
 
     if @users.valid_credentials?(username, password)
       session[:success] = "Welcome #{params[:username]}!"
-      session[:username] = params[:username]
+      session[:username] = username
       redirect '/FlightTrackApp'
     else
       session[:alert] = 'Invalid Credentials'
@@ -113,8 +113,8 @@ class FlightTrackApp < Sinatra::Base
       status 422
       erb :sign
     elsif !@invalid_infos.empty?
-      session[:alert] = "Some informations are incorrect.
-                         Please check #{@invalid_infos.join(', ')}."
+      session[:alert] = "Some information are invalid."\
+      " Please check #{@invalid_infos.join(', ')}."
       invalid_password = @invalid_infos.include?(:password)
 
       if invalid_password
@@ -126,7 +126,8 @@ class FlightTrackApp < Sinatra::Base
       erb :sign
     else # success
       @users.create_user(@users_infos)
-      session[:success] = 'Thank you for register. Please sign in.'
+      session[:username] = @users_infos[0]
+      session[:success] = 'Congratulations, your account has been created!'
 
       status 302
       redirect '/FlightTrackApp'
