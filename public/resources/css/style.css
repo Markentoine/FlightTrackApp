@@ -34,65 +34,31 @@ header a {
   text-decoration-line: none;
 }
 
-/**=============
-  Landing Page
-=============**/
-form div {
-  padding: .5em;
-}
-
-div.flightsearch input {
-  display: block;
-  padding: .5em;
-  font-size: 1.2em;
-  width: 25em;
-}
-
-form.airportsearch input {
-  display: inline-block;
-  width: 15em;
-}
-
-form.airportsearch button {
-  margin-top: 1em;
-  height: 3.2em;
-  width: 8em;
-}
-
-.hero .splash {
-  margin: auto;
-  width: 1380px;
-  height: 500px;
-  background-image: url("/splash.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
-}
-
-.hero div.center {
+div.message {
   position: absolute;
-  margin: auto;
-  top: -10em;
-  left:-2em;
-  right:0;
-  bottom:0;
-  height:100px;
+  display: block;
+  left: 50%;
+  transform: translate(-50%, 0);
 }
 
-.hero p {
-  letter-spacing: .06em;
+div.message p {
+  padding: 0.1em 2em;
+  border-radius: 0 0 5px 5px;
+  line-height: 1.5em;
   text-align: center;
-  font-size: 2em;
-  font-weight: 700;
-  color: white;
+  font-size: 1.2em;
+  font-weight: 400;
+  letter-spacing: -0.05em;
 }
 
-.hero p span {
-  text-align: center;
-  letter-spacing: .08em;
-  font-size: 2em;
-  font-weight: 300;
-  text-transform: uppercase;
+div.message p.success {
+  color: #296D30;
+  background-color: #6CF996;
+}
+
+div.message p.alert {
+  color: #542517;
+  background-color: #F797BA;
 }
 
 .hero nav {
@@ -102,7 +68,7 @@ form.airportsearch button {
   text-align: right;
   position: absolute;
   margin: auto;
-  top: 1em;
+  top: 1.7em;
   right: 0;
 }
 
@@ -134,6 +100,74 @@ form.airportsearch button {
 .hero nav button.attention:hover {
   color: #515151;
   background-color: #CFCFCF;
+}
+
+.hero nav p {
+  display: inline-block;
+  font-size: 1em;
+  font-weight: 300;
+  font-style: italic;
+}
+
+/**=============
+  Landing Page
+=============**/
+form div {
+  padding: .5em;
+}
+
+div.flightsearch input {
+  display: block;
+  padding: .5em;
+  font-size: 1.2em;
+  width: 25em;
+}
+
+form.airportsearch input {
+  display: inline-block;
+  width: 15em;
+}
+
+form.airportsearch button {
+  margin-top: 1em;
+  height: 3.2em;
+  width: 8em;
+}
+
+.hero .splash {
+  margin: auto;
+  width: 2880px;
+  height: 500px;
+  background-image: url("/splash.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
+
+.hero div.center {
+  position: absolute;
+  margin: auto;
+  top: -10em;
+  left:-2em;
+  right:0;
+  bottom:0;
+  height:100px;
+}
+
+.hero p {
+  letter-spacing: .06em;
+  text-align: center;
+  font-size: 2em;
+  font-weight: 700;
+  color: white;
+}
+
+.hero p span {
+  text-align: center;
+  letter-spacing: .08em;
+  font-size: 2em;
+  font-weight: 300;
+  text-transform: uppercase;
 }
 
 /**=============

@@ -3,7 +3,7 @@ CREATE TABLE airports (
   name varchar(256) NOT NULL,
   city varchar(128) NOT NULL,
   country varchar(64) NOT NULL,
-  iata char(3) CHECK (iata ~ '^[0-9A-Z]{3}$') NOT NULL,
+  iata char(3) CHECK (iata ~ '^[0-9A-Z]{3}$'),
   latitude numeric NOT NULL,
   longitude numeric NOT NULL,
   icao char(4),
