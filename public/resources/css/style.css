@@ -34,6 +34,78 @@ header a {
   text-decoration-line: none;
 }
 
+div.message {
+  position: absolute;
+  display: block;
+  width: 100%;
+}
+
+div.message p {
+  line-height: 1.5em;
+  text-align: center;
+  font-size: 1.2em;
+  font-weight: 400;
+  letter-spacing: -0.05em;
+}
+
+div.message p.success {
+  color: #296D30;
+  background-color: #6CF996;
+}
+
+div.message p.alert {
+  color: #542517;
+  background-color: #F797BA;
+}
+
+.hero nav {
+  display: block;
+  float: right;
+  padding-right: 1em;
+  text-align: right;
+  position: absolute;
+  margin: auto;
+  top: 1.7em;
+  right: 0;
+}
+
+.hero form {
+  display: inline-block;
+  margin-right: .5em;
+}
+
+.hero nav button {
+  color: #F0F0F0;
+  font-size: 1em;
+  font-weight: 700;
+  padding: 15px;
+  text-transform: uppercase;
+  background-color: transparent;
+  border: none;
+}
+
+.hero nav button:hover {
+  color: #515151;
+  cursor: pointer;
+}
+
+.hero nav button.attention {
+  border: 1.5px solid #CFCFCF;
+  border-radius: 4px;
+}
+
+.hero nav button.attention:hover {
+  color: #515151;
+  background-color: #CFCFCF;
+}
+
+.hero nav p {
+  display: inline-block;
+  font-size: 1em;
+  font-weight: 300;
+  font-style: italic;
+}
+
 /**=============
   Landing Page
 =============**/
@@ -93,47 +165,6 @@ form.airportsearch button {
   font-size: 2em;
   font-weight: 300;
   text-transform: uppercase;
-}
-
-.hero nav {
-  display: block;
-  float: right;
-  padding-right: 1em;
-  text-align: right;
-  position: absolute;
-  margin: auto;
-  top: 1em;
-  right: 0;
-}
-
-.hero form {
-  display: inline-block;
-  margin-right: .5em;
-}
-
-.hero nav button {
-  color: #F0F0F0;
-  font-size: 1em;
-  font-weight: 700;
-  padding: 15px;
-  text-transform: uppercase;
-  background-color: transparent;
-  border: none;
-}
-
-.hero nav button:hover {
-  color: #515151;
-  cursor: pointer;
-}
-
-.hero nav button.attention {
-  border: 1.5px solid #CFCFCF;
-  border-radius: 4px;
-}
-
-.hero nav button.attention:hover {
-  color: #515151;
-  background-color: #CFCFCF;
 }
 
 /**=============
