@@ -37,10 +37,13 @@ header a {
 div.message {
   position: absolute;
   display: block;
-  width: 100%;
+  left: 50%;
+  transform: translate(-50%, 0);
 }
 
 div.message p {
+  padding: 0.1em 2em;
+  border-radius: 0 0 5px 5px;
   line-height: 1.5em;
   text-align: center;
   font-size: 1.2em;
