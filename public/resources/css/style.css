@@ -17,6 +17,10 @@ nav{
   display: flex;
   margin-left: auto;
 }
+
+.credit {
+  font-size: 0.5em;
+}
 /**=============
     Layout
 =============**/
