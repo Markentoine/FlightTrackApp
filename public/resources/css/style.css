@@ -1,4 +1,5 @@
 html {
+  font-family: 'Lato', sans-serif;
 	font-size: 16px;
 	color: black;
 	background-color: white;
@@ -21,6 +22,17 @@ nav{
   margin-left: auto;
 }
 
+/**=============
+    Layout
+=============**/
+
+header a {
+  font-family: 'Roboto', 'Lato', sans-serif;
+  font-size: 2em;
+  font-weight: 700;
+  color: #081739;
+  text-decoration-line: none;
+}
 
 /**=============
   Landing Page
@@ -47,6 +59,86 @@ form.airportsearch button {
   width: 8em;
 }
 
+.hero .splash {
+  margin: auto;
+  width: 1380px;
+  height: 500px;
+  background-image: url("/splash.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
+
+.hero div.center {
+  position: absolute;
+  margin: auto;
+  top: -10em;
+  left:-2em;
+  right:0;
+  bottom:0;
+  height:100px;
+}
+
+.hero p {
+  letter-spacing: .06em;
+  text-align: center;
+  font-size: 2em;
+  font-weight: 700;
+  color: white;
+}
+
+.hero p span {
+  text-align: center;
+  letter-spacing: .08em;
+  font-size: 2em;
+  font-weight: 300;
+  text-transform: uppercase;
+}
+
+.hero nav {
+  display: block;
+  float: right;
+  padding-right: 1em;
+  text-align: right;
+  position: absolute;
+  margin: auto;
+  top: 1em;
+  right: 0;
+}
+
+.hero form {
+  display: inline-block;
+  margin-right: .5em;
+}
+
+.hero nav button {
+  color: #F0F0F0;
+  font-size: 1em;
+  font-weight: 700;
+  padding: 15px;
+  text-transform: uppercase;
+  background-color: transparent;
+  border: none;
+}
+
+.hero nav button:hover {
+  color: #515151;
+  cursor: pointer;
+}
+
+.hero nav button.attention {
+  border: 1.5px solid #CFCFCF;
+  border-radius: 4px;
+}
+
+.hero nav button.attention:hover {
+  color: #515151;
+  background-color: #CFCFCF;
+}
+
+/**=============
+  Autocomplete
+=============**/
 .ui-autocomplete {
   display: block;
   width: 20em;

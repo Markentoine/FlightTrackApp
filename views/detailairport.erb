@@ -23,11 +23,11 @@
   	</tr>
   	<tr>
   		<td>Altitude</td>
-  		<td><%= @airport_infos[:altitude] %> ft</td>
+  		<td><%= @airport_infos[:altitude] %> ft.</td>
   	</tr>
   	<tr>
   		<td>Time zone</td>
-  		<td><%= @airport_infos[:timezone] %></td>
+  		<td><%= @airport_infos[:timezone] %> UTC</td>
   	</tr>
   </table>
 </div>
@@ -35,6 +35,7 @@
 <div>
 	<iframe src="https://www.google.com/maps/embed/v1/view?key=AIzaSyCm-fNKdjRs0I-tsRVNZJshyA5qWfFsgng&center=<%= @airport_infos[:latitude] %>,<%= @airport_infos[:longitude] %>&zoom=14&maptype=satellite" width=800 height=500></iframe> 
 </div>
+
 
 <div>
   <textarea row=50 cols="50">

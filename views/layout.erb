@@ -7,12 +7,36 @@
 	<link rel="stylesheet" type="text/css" href="/resources/css/style.css">
   <script src="/resources/javascript/jquery-3.3.1.min.js"></script>
   <script src="/resources/javascript/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,900" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
 </head>
 
 <body>
 
   <header>
-    <h1>Ground to Sky</h1>
+    <div class ="hero">
+      <%== yield_content :hero %>
+
+      <nav>
+        <div>
+          <%== yield_content :header_links %>
+        </div>
+        <% if session[:in_sign] == false && session[:username].nil? %>
+          <form action="/FlightTrackApp/users/sign" method="get">
+            <button type="submit" value="Sign in">Sign in</button>
+          </form>
+
+          <form action="/FlightTrackApp/users/sign" method="get">
+            <button class="attention" type="submit" value="Register">Register</button>
+          </form>
+        <% elsif session[:username] %>
+            <p>Signed in as <%= session[:username] %></p>
+            <form action="/FlightTrackApp/users/signout" method="post">
+              <button type="submit" value="Sign out">Sign out</button>
+            </form>
+        <% end %>
+      </nav>
+    </div>
 
     <div class="message">
       <% if session[:success] %>
@@ -21,23 +45,6 @@
         <p class="alert"><%= session.delete(:alert) %></p>
       <% end %>
     </div>
-
-    <nav>
-      <div>
-        <%== yield_content :header_links %>
-      </div>
-    	<% if session[:in_sign] == false && session[:username].nil? %>
-    	  <form action="/FlightTrackApp/users/sign" method="get">
-    	  	<button type="submit" value="Sign in">Sign in</button>
-    	  	<button type="submit" value="Register">Register</button>
-    	  </form>
-    	<% elsif session[:username] %>
-          <p>Signed in as <%= session[:username] %></p>
-    	  	<form action="/FlightTrackApp/users/signout" method="post">
-    	  		<button type="submit" value="Sign out">Sign out</button>
-    	  	</form>
-    	<% end %>
-    </nav>
 
   </header>
 
