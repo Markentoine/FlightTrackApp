@@ -25,8 +25,11 @@ class TestFlightTrackApp < Minitest::Test
   def test_landing_page
     get '/FlightTrackApp'
     assert_equal(200, last_response.status)
-    assert_includes(last_response.body, 'Track Your Flight')
-    assert_includes(last_response.body, 'Sign in')
-    assert_includes(last_response.body, 'Sign up')
+
+    assert_match(/Airports/i, last_response.body)
+    assert_match(/Airlines/i, last_response.body)
+    assert_match(/Routes/i, last_response.body)
+    assert_match(/Sign in/i, last_response.body)
+    assert_match(/Register/i, last_response.body)
   end
 end
