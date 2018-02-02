@@ -5,9 +5,36 @@ class Search
     @db = if Sinatra::Base.production?
             PG.connect(ENV['DATABASE_URL'])
           else
-            PG.connect(dbname: "flights")
+            initialize_local_database
           end
     @logger = logger
+  end
+
+  def initialize_local_database
+    begin
+      PG.connect(dbname: "flights")
+    rescue PG::ConnectionBad
+      PG.connect.exec('CREATE DATABASE flights')
+      db = PG.connect(dbname: "flights")
+
+      schema_sql = File.read('schema.sql')
+      db.exec(schema_sql)
+
+      airports_data_path = Dir.getwd + '/public/data/airports_parsed.csv'
+      fields = '(id,name,city,country,iata,icao,latitude,longitude,altitude,timezone,dst,tz,type,source)'
+
+      db.exec("COPY airports #{fields} FROM \'#{airports_data_path}\' WITH CSV HEADER;")
+      db
+    end
+  end
+
+  def disconnect
+    @db.close
+  end
+
+  def query(statement, *params)
+    @logger.info "#{statement}: #{params}"
+    @db.exec_params(statement, params)
   end
 
   def airport_details(id)
@@ -50,15 +77,6 @@ class Search
     sql = "SELECT DISTINCT city FROM airports WHERE country ILIKE $1 AND city ILIKE $2"
 
     query(sql, country,"#{city}%").column_values(0).compact
-  end
-
-  def disconnect
-    @db.finish
-  end
-
-  def query(statement, *params)
-    @logger.info "#{statement}: #{params}"
-    @db.exec_params(statement, params)
   end
 
   def query_airports(country, city)
