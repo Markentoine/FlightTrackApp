@@ -23,8 +23,8 @@ class Search
     sql = <<~SQL
       SELECT name, city, country, iata, icao,
              latitude, longitude, altitude,timezone
-        FROM airports
-       WHERE id = $1
+      FROM airports
+      WHERE id = $1
     SQL
 
     query(sql, id).values
@@ -95,7 +95,7 @@ class Search
 
   def import_airports_data!(db)
     airports_data_path = Dir.getwd + '/public/data/airports_parsed.csv'
-    
+
     fields = '(id,name,city,country,iata,icao,latitude,longitude,altitude,timezone,dst,tz,type,source)'
 
     sql = "COPY airports #{fields} FROM \'#{airports_data_path}\' WITH CSV HEADER;"

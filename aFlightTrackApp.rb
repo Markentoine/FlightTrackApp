@@ -168,8 +168,8 @@ class FlightTrackApp < Sinatra::Base
     city = params[:from_city].to_s
     raw_results = @search.query_airports(country, city)
     results = raw_results.map { |airport_infos| [:id, :name, :latitude, :longitude]
-                            .zip(airport_infos)
-                            .to_h }
+                                                .zip(airport_infos)
+                                                .to_h }
     session[:results] = results
     redirect '/FlightTrackApp/airports'
   end
