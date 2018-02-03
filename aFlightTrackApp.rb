@@ -43,13 +43,20 @@ class FlightTrackApp < Sinatra::Base
       wikipedia_page = Wikipedia.find(name)
       summary = wikipedia_page.summary
       images_urls = wikipedia_page.image_urls
-      if wikipedia_page && summary && images_urls
-        return [summary, images_urls]
+      jpg_images_urls = filter_jpg_urls(images_urls)
+      nb_images = jpg_images_urls.size
+      if wikipedia_page && summary && jpg_images_urls
+        jpg_images_urls = nb_images > 3 ? jpg_images_urls.first(3) : jpg_images_urls
+        return [summary, jpg_images_urls]
       elsif wikipedia_page && summary
         return [summary, []]
       else
         return [ nil, []]
       end
+    end
+
+    def filter_jpg_urls(urls)
+      urls.reduce([]) { |result, url| result << url if url.match(/.jpg/); result }
     end
   end
 
