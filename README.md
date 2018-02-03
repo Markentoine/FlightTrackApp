@@ -1,5 +1,9 @@
 ## Ground to Sky: A Flight Search Tool
 
+**Project is currently WORK IN PROGRESS**
+This is app is deployed to Heroku:
+https://ground-to-sky-flight-tracker.herokuapp.com/FlightTrackApp
+
 ### Installation
 
 #### Bundler
