@@ -12,3 +12,6 @@ gem 'sinatra'
 gem 'sinatra-contrib'
 gem 'wikipedia-client'
 
+group :production do
+  gem 'puma'
+end

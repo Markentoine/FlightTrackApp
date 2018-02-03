@@ -5,10 +5,6 @@ html {
 	background-color: white;
 }
 
-div.container {
-  border: 1px solid #FC7D7D;
-}
-
 header{
   display: flex;
 }
@@ -22,6 +18,9 @@ nav{
   margin-left: auto;
 }
 
+.credit {
+  font-size: 0.5em;
+}
 /**=============
     Layout
 =============**/
@@ -32,6 +31,15 @@ header a {
   font-weight: 700;
   color: #081739;
   text-decoration-line: none;
+}
+
+.container h2 {
+  color: #6E6E6E;
+  font-size: 1.5em;
+  text-align: center;
+  letter-spacing: .07em;
+  padding: 1em 0;
+  margin-bottom: 1em;
 }
 
 div.message {
@@ -144,13 +152,18 @@ form.airportsearch button {
   background-position: 50% 50%;
 }
 
+@media screen and (max-width: 1367px) {
+  .hero .splash {
+    width: 1351px;
+  }
+}
+
 .hero div.center {
   position: absolute;
   margin: auto;
-  top: -10em;
-  left:-2em;
-  right:0;
-  bottom:0;
+  top: 200px;
+  left: 10%;
+  right: 10%;
   height:100px;
 }
 
@@ -162,12 +175,77 @@ form.airportsearch button {
   color: white;
 }
 
-.hero p span {
+.hero span {
   text-align: center;
   letter-spacing: .08em;
   font-size: 2em;
   font-weight: 300;
   text-transform: uppercase;
+}
+
+div.links {
+  margin: auto;
+  display: block;
+  float: center;
+  width: 51.5em;
+}
+
+.links div {
+  display: inline-block;
+  margin: 0 1em 5em 1em;
+}
+
+.links a {
+  text-decoration: none;
+}
+
+.links img {
+  border: none;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 15em;
+  height: 15em;
+}
+
+@media screen and (max-width: 800px) {
+  .links img {
+    width: 10em;
+    height: 10em;
+  }
+
+  div.links {
+    width: 36.5em;
+  }
+}
+
+.links img:hover {
+  border: none;
+  filter: brightness(120%);
+}
+
+.links p {
+  font-family: 'Roboto', 'Lato', sans-serif;
+  font-weight: 700;
+  font-size: 1.4em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.links a {
+  outline: none;
+  border: none;
+}
+
+#airports-icon {
+  background-image: url("/airports_icon.png");
+}
+
+#airlines-icon {
+  background-image: url("/airlines_icon.png");
+}
+
+#routes-icon {
+  background-image: url("/routes_icon.png");
 }
 
 /**=============

@@ -15,19 +15,25 @@
 <div class="container">
   Some flights (map with some routes)
 <div>
-  <div><h2>You are curious about</h2></div>
-  <div>
-    <form action="/FlightTrackApp/airports" method="get">
-      <button type="submit">AIRPORTS</button>
-    </form>
-    <form action="/FlightTrackApp/airlines" method="get">
-      <button type="submit">AIRLINES</button>
-    </form>
-    <form action="/FlightTrackApp/routes" method="get">
-      <button type="submit">ROUTES</button>
-    </form>
+  <h2>You are curious about:</h2>
+  
+  <div class="links">
+    <div>
+      <a href="/FlightTrackApp/airports"><img  id="airports-icon"></a>
+      <p>Airports</p>
+    </div>
+
+    <div>
+      <a href="/FlightTrackApp/airlines"><img  id="airlines-icon"></a>
+      <p>Airlines</p>
+    </div>
+
+    <div>
+      <a href="/FlightTrackApp/routes"><img id="routes-icon"></a>
+      <p>Routes</p>
+    </div>
+
+    <a class="credit" href="https://www.vecteezy.com">Graphics Provided by Vecteezy!</a>
+
   </div>
 </div>
-
-<!-- SELECT (iata || ' ' || trim(trailing ' Airport' from name) || ', ' || city) FROM airports;
- -->

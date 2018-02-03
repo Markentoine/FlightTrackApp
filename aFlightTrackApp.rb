@@ -35,21 +35,12 @@ class FlightTrackApp < Sinatra::Base
   end
 
   helpers do
-    def self.data_path
-      if ENV['RACK_ENV'] == 'test'
-        File.expand_path('../test/data', __FILE__)
-      else
-        File.expand_path('../public/data', __FILE__)
-      end
-    end
-
     def self.root
       File.expand_path('..', __FILE__)
     end
   end
 
   before do
-    @data_path = data_path
     @invalid_infos ||= []
     session[:in_sign] = false
 
