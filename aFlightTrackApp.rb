@@ -164,8 +164,8 @@ class FlightTrackApp < Sinatra::Base
   end
 
   post '/FlightTrackApp/searchairport' do
-    country = params[:from_country].to_s
-    city = params[:from_city].to_s
+    country = params[:from_country].to_s.capitalize
+    city = params[:from_city].to_s.capitalize
     raw_results = @search.query_airports(country, city)
     results = raw_results.map { |airport_infos| [:id, :name, :latitude, :longitude]
                                                 .zip(airport_infos)
