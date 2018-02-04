@@ -165,13 +165,19 @@ class FlightTrackApp < Sinatra::Base
 
   post '/FlightTrackApp/searchairport' do
     country = params[:from_country].to_s.capitalize
-    city = params[:from_city].to_s.capitalize
-    raw_results = @search.query_airports(country, city)
-    results = raw_results.map { |airport_infos| [:id, :name, :latitude, :longitude]
-                                                .zip(airport_infos)
-                                                .to_h }
-    session[:results] = results
-    redirect '/FlightTrackApp/airports'
+    if params[:from_city].length > 0
+      city = params[:from_city].to_s.capitalize
+      raw_results = @search.query_airports(country, city)
+      results = raw_results.map { |airport_infos| [:id, :name, :latitude, :longitude]
+                                                  .zip(airport_infos)
+                                                  .to_h }
+      session[:airports] = results
+      redirect '/FlightTrackApp/airports'
+    else
+      cities_with_airport = @search.all_cities_with_airports_in_a_country(country)
+      session[:cities] = cities_with_airport.flatten.uniq
+      redirect '/FlightTrackApp/airports'
+    end
   end
 
   get '/FlightTrackApp/detailsairport/:id' do |id|
