@@ -84,7 +84,6 @@ class Search
       query(sql, country).values
     else
       sql += city_query
-      p sql
       query(sql, country, city).values
     end
   end

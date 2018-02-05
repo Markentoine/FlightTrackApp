@@ -45,18 +45,23 @@ class FlightTrackApp < Sinatra::Base
       images_urls = wikipedia_page.image_urls
       jpg_images_urls = filter_jpg_urls(images_urls)
       nb_images = jpg_images_urls.size
+
       if wikipedia_page && summary && jpg_images_urls
         jpg_images_urls = nb_images > 3 ? jpg_images_urls.first(3) : jpg_images_urls
-        return [summary, jpg_images_urls]
+        [summary, jpg_images_urls]
       elsif wikipedia_page && summary
-        return [summary, []]
+        [summary, []]
       else
-        return [ nil, []]
+        [ nil, []]
       end
     end
 
     def filter_jpg_urls(urls)
       urls.reduce([]) { |result, url| result << url if url.match(/.jpg/); result }
+    end
+
+    def homepage?
+      request.path_info == "/FlightTrackApp"
     end
   end
 
@@ -168,7 +173,7 @@ class FlightTrackApp < Sinatra::Base
     city = params[:from_city]
 
     raw_results = @search.query_airports(country, city)
-    
+
     if raw_results.size > 20
       session[:alert] = "Too many results. Please narrow your search criteria"
       halt erb :airports
