@@ -275,6 +275,21 @@ ul.links {
 }
 
 /**=============
+  Airports
+=============**/
+
+#list-cities{
+  display: flex;
+  border: 1px solid red;
+  max-width: 100%;
+  overflow: scroll;
+}
+ul.cities{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/**=============
   Detailed Infos
 =============**/
 

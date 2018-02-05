@@ -39,19 +39,19 @@
 
 <div>
   <textarea row=50 cols="50">
-    <%= @summary %>
+    <%= @airport_summary %>
   </textarea>
 </div>
 
-<div><% @images_wikimedia.each do |image_url| %>
-  <% if image_url.match(/.jpg/) %>
-  <ul>
-    <li>
-      <img src="<%= image_url %>" width=200 height=140>
-    </li>
-  </ul>
-  <% end %>
-  <% end %>
+<div><% @airport_images.each do |image_url| %>
+       <% if image_url.match(/.jpg/) %>
+         <ul>
+           <li>
+             <img src="<%= image_url %>" width=200 height=140>
+           </li>
+         </ul>
+       <% end %>
+     <% end %>
   <p>Source : Wikipedia</p>
 </div>
 

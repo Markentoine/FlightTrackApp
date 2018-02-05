@@ -23,11 +23,21 @@ class Search
     sql = <<~SQL
       SELECT name, city, country, iata, icao,
              latitude, longitude, altitude,timezone
-        FROM airports
-       WHERE id = $1
+      FROM airports
+      WHERE id = $1
     SQL
 
     query(sql, id).values
+  end
+
+  def all_cities_with_airports_in_a_country(country)
+    sql = <<~SQL
+      SELECT city
+      FROM airports
+      WHERE country = $1
+    SQL
+
+    query(sql, country).values
   end
 
   def autocomplete_airport_list(string)
@@ -40,7 +50,7 @@ class Search
             name ||
              ', ' ||
             city)
-        FROM airports
+       FROM airports
        WHERE iata ILIKE $1 OR name ILIKE $1 OR city ILIKE $1;
     SQL
 
@@ -64,9 +74,9 @@ class Search
   def query_airports(country, city)
     sql = <<~SQL
       SELECT id, name, latitude, longitude
-        FROM airports
-       WHERE country = $1
-         AND city = $2
+      FROM airports
+      WHERE country = $1
+      AND city = $2
     SQL
 
     query(sql, country, city).values
@@ -95,7 +105,7 @@ class Search
 
   def import_airports_data!(db)
     airports_data_path = Dir.getwd + '/public/data/airports_parsed.csv'
-    
+
     fields = '(id,name,city,country,iata,icao,latitude,longitude,altitude,timezone,dst,tz,type,source)'
 
     sql = "COPY airports #{fields} FROM \'#{airports_data_path}\' WITH CSV HEADER;"
