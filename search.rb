@@ -41,7 +41,7 @@ class Search
   end
 
   def autocomplete_airport_list(string)
-    return [] if valid_string?(string)
+    return [] if invalid_string?(string)
 
     sql = <<~SQL
       SELECT
@@ -58,7 +58,7 @@ class Search
   end
 
   def autocomplete_country_list(string)
-    return [] if valid_string?(string)
+    return [] if invalid_string?(string)
 
     sql = "SELECT DISTINCT country FROM airports WHERE country ILIKE $1"
 
@@ -90,7 +90,7 @@ class Search
 
   private
 
-  def valid_string?(string)
+  def invalid_string?(string)
     string.nil? || string.length < 2
   end
 
