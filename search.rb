@@ -67,8 +67,8 @@ class Search
 
   def autocomplete_city_list(city, _, country)
     sql = <<~SQL
-      SELECT DISTINCT city 
-        FROM airports 
+      SELECT DISTINCT city
+        FROM airports
        WHERE country ILIKE $1 AND city ILIKE $2
     SQL
 
