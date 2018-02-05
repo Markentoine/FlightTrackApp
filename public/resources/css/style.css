@@ -70,22 +70,6 @@ div.message p.alert {
   background-color: #F797BA;
 }
 
-.hero nav {
-  display: block;
-  float: right;
-  padding-right: 1em;
-  text-align: right;
-  position: absolute;
-  margin: auto;
-  top: 1.7em;
-  right: 0;
-}
-
-.hero form {
-  display: inline-block;
-  margin-right: .5em;
-}
-
 .hero nav button {
   color: #F0F0F0;
   font-size: 1em;
@@ -116,6 +100,15 @@ div.message p.alert {
   font-size: 1em;
   font-weight: 300;
   font-style: italic;
+}
+
+.homepage a {
+  text-transform: uppercase;
+  font-size: 2em;
+  font-weight: 700;
+  padding: 1em 0.2em;
+  display: block;
+  vertical-align: center;
 }
 
 /**=============
@@ -159,6 +152,17 @@ form.airportsearch button {
   }
 }
 
+.hero nav {
+  display: block;
+  float: right;
+  padding-right: 1em;
+  text-align: right;
+  position: absolute;
+  margin: auto;
+  top: 1.7em;
+  right: 0;
+}
+
 .hero div.center {
   position: absolute;
   margin: auto;
@@ -174,6 +178,11 @@ form.airportsearch button {
   font-size: 2em;
   font-weight: 700;
   color: white;
+}
+
+.hero form {
+  display: inline-block;
+  margin-right: .5em;
 }
 
 .hero span {
@@ -277,8 +286,7 @@ ul.links {
 /**=============
   Airports
 =============**/
-
-#list-cities{
+#list-cities {
   display: flex;
   border: 1px solid red;
   max-width: 100%;
