@@ -19,6 +19,7 @@ nav{
 }
 
 .credit {
+  display: block;
   font-size: 0.5em;
 }
 /**=============
@@ -183,14 +184,14 @@ form.airportsearch button {
   text-transform: uppercase;
 }
 
-div.links {
+ul.links {
   margin: auto;
   display: block;
   float: center;
   width: 51.5em;
 }
 
-.links div {
+.links li {
   display: inline-block;
   margin: 0 1em 5em 1em;
 }
@@ -213,7 +214,7 @@ div.links {
     height: 10em;
   }
 
-  div.links {
+  ul.links {
     width: 36.5em;
   }
 }
