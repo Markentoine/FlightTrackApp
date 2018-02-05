@@ -9,9 +9,9 @@
   </form>
 </div>
 
-<% if session[:results] %>
+<% if session[:airports] %>
   <ul>
-    <% session.delete(:results).each do |airport_infos| %>
+    <% session.delete(:airports).each do |airport_infos| %>
     <li><form action="/FlightTrackApp/detailsairport/<%= airport_infos[:id] %>" method="get">
           <button type="submit">
             <div>
@@ -23,6 +23,20 @@
     </li>
     <% end %>
   </ul>
+<% elsif session[:cities] %>
+  <div id="list-cities">
+    <ul class="cities">
+      <% session.delete(:cities).each do |city| %>
+        <li>
+          <form action=/FlightTrackApp/searchairport method="post">
+            <button type="submit">
+              <%= city %>
+            </button>
+          </form>
+        </li>
+      <% end %>
+  </ul>
+  </div>
 <% end %>
 
 <script>

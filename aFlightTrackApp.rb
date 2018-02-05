@@ -38,6 +38,26 @@ class FlightTrackApp < Sinatra::Base
     def self.root
       File.expand_path('..', __FILE__)
     end
+
+    def fetch_from_wikipedia(name)
+      wikipedia_page = Wikipedia.find(name)
+      summary = wikipedia_page.summary
+      images_urls = wikipedia_page.image_urls
+      jpg_images_urls = filter_jpg_urls(images_urls)
+      nb_images = jpg_images_urls.size
+      if wikipedia_page && summary && jpg_images_urls
+        jpg_images_urls = nb_images > 3 ? jpg_images_urls.first(3) : jpg_images_urls
+        return [summary, jpg_images_urls]
+      elsif wikipedia_page && summary
+        return [summary, []]
+      else
+        return [ nil, []]
+      end
+    end
+
+    def filter_jpg_urls(urls)
+      urls.reduce([]) { |result, url| result << url if url.match(/.jpg/); result }
+    end
   end
 
   before do
@@ -144,20 +164,28 @@ class FlightTrackApp < Sinatra::Base
   end
 
   post '/FlightTrackApp/searchairport' do
-    country = params[:from_country].to_s
-    city = params[:from_city].to_s
-    results = @search.query_airports(country, city)
-    results = results.map { |airport_infos| [:id, :name, :latitude, :longitude].zip(airport_infos).to_h }
-    session[:results] = results
-    redirect '/FlightTrackApp/airports'
+    country = params[:from_country].to_s.capitalize
+    if params[:from_city].length > 0
+      city = params[:from_city].to_s.capitalize
+      raw_results = @search.query_airports(country, city)
+      results = raw_results.map { |airport_infos| [:id, :name, :latitude, :longitude]
+                                                  .zip(airport_infos)
+                                                  .to_h }
+      session[:airports] = results
+      redirect '/FlightTrackApp/airports'
+    else
+      cities_with_airport = @search.all_cities_with_airports_in_a_country(country)
+      session[:cities] = cities_with_airport.flatten.uniq
+      redirect '/FlightTrackApp/airports'
+    end
   end
 
   get '/FlightTrackApp/detailsairport/:id' do |id|
-    @airport_infos = @search.airport_details(id)
-    @airport_infos = [:name, :city, :country, :iata, :icao, :latitude, :longitude, :altitude, :timezone].zip(*@airport_infos).to_h
-    wikipedia_page = Wikipedia.find(@airport_infos[:name])
-    @images_wikimedia = wikipedia_page.image_urls
-    @summary = wikipedia_page.summary
+    raw_airport_infos = @search.airport_details(id)
+    @airport_infos = [:name, :city, :country, :iata, :icao, :latitude, :longitude, :altitude, :timezone]
+                     .zip(*raw_airport_infos)
+                     .to_h
+    @airport_summary, @airport_images = fetch_from_wikipedia(@airport_infos[:name])
     erb :detailairport
   end
 
