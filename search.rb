@@ -34,10 +34,10 @@ class Search
     sql = <<~SQL
       SELECT city
       FROM airports
-      WHERE country = $1
+      WHERE country ILIKE $1
     SQL
 
-    query(sql, country).values
+    query(sql, "#{country}%").values
   end
 
   def autocomplete_airport_list(string)
@@ -71,15 +71,22 @@ class Search
     query(sql, country,"#{city}%").column_values(0).compact
   end
 
-  def query_airports(country, city)
+  def query_airports(country, city='')
+    city_query = ' AND city ILIKE $2'
+
     sql = <<~SQL
       SELECT id, name, latitude, longitude
       FROM airports
-      WHERE country = $1
-      AND city = $2
+      WHERE country ILIKE $1
     SQL
 
-    query(sql, country, city).values
+    if city.strip.empty?
+      query(sql, country).values
+    else
+      sql += city_query
+      p sql
+      query(sql, country, city).values
+    end
   end
 
   private
