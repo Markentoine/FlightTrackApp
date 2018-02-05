@@ -25,6 +25,12 @@
 
       <%== yield_content :hero %>
 
+      <% unless homepage? %>
+        <div class="homepage">
+          <a href="/">Ground to Sky</a>
+        </div>
+      <% end %>
+
       <nav>
         <div>
           <%== yield_content :header_links %>

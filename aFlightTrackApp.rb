@@ -44,19 +44,24 @@ class FlightTrackApp < Sinatra::Base
       summary = wikipedia_page.summary
       images_urls = wikipedia_page.image_urls
       jpg_images_urls = filter_jpg_urls(images_urls)
-      nb_images = jpg_images_urls.size
+
       if wikipedia_page && summary && jpg_images_urls
-        jpg_images_urls = nb_images > 3 ? jpg_images_urls.first(3) : jpg_images_urls
-        return [summary, jpg_images_urls]
-      elsif wikipedia_page && summary
-        return [summary, []]
+        jpg_images_urls = jpg_images_urls[0..2]
+        [summary, jpg_images_urls]
       else
-        return [ nil, []]
+        [ nil, []]
       end
     end
 
     def filter_jpg_urls(urls)
-      urls.reduce([]) { |result, url| result << url if url.match(/.jpg/); result }
+      urls.reduce([]) do |result, url| 
+        result << url if url.match(/.jpg/)
+        result
+      end
+    end
+
+    def homepage?
+      request.path_info == "/FlightTrackApp"
     end
   end
 
@@ -168,7 +173,7 @@ class FlightTrackApp < Sinatra::Base
     city = params[:from_city]
 
     raw_results = @search.query_airports(country, city)
-    
+
     if raw_results.size > 20
       session[:alert] = "Too many results. Please narrow your search criteria"
       halt erb :airports
@@ -176,8 +181,9 @@ class FlightTrackApp < Sinatra::Base
 
     results = 
       raw_results.map do |airport_infos| 
-        [:id, :name, :latitude, :longitude].zip(airport_infos)
-                                           .to_h
+        [:id, :name, :latitude, :longitude]
+          .zip(airport_infos)
+          .to_h
       end
 
     session[:airports] = results
@@ -185,11 +191,8 @@ class FlightTrackApp < Sinatra::Base
   end
 
   get '/FlightTrackApp/detailsairport/:id' do |id|
-    raw_airport_infos = @search.airport_details(id)
-    @airport_infos = [:name, :city, :country, :iata, :icao, :latitude, :longitude, :altitude, :timezone]
-                     .zip(*raw_airport_infos)
-                     .to_h
-    @airport_summary, @airport_images = fetch_from_wikipedia(@airport_infos[:name])
+    @airport_infos = @search.airport_details(id)
+    @airport_summary, @airport_images = fetch_from_wikipedia(@airport_infos['name'])
     erb :detailairport
   end
 
