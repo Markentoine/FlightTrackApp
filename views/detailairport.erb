@@ -1,39 +1,43 @@
-<div><h1>Detailed Informations about <%= @airport_infos[:name] %> in <%= @airport_infos[:city] %> (<%= @airport_infos[:country] %>)</h1></div>
+<div><h1>Detailed Informations about <%= @airport_infos["name"] %> in <%= @airport_infos["city"] %> (<%= @airport_infos["country"] %>)</h1></div>
 <div>
   <table>
   	<tr>
   		<th></th>
-  		<th><%= @airport_infos[:name] %></th>
+  		<th><%= @airport_infos["name"] %></th>
   	</tr>
   	<tr>
   		<td>IATA</td>
-  		<td><%= @airport_infos[:iata] %></td>
+  		<td><%= @airport_infos["iata"] %></td>
   	</tr>
   	<tr>
   		<td>ICAO</td>
-  		<td><%= @airport_infos[:icao] %></td>
+  		<td><%= @airport_infos["icao"] %></td>
   	</tr>
   	<tr>
   		<td>Latitude</td>
-  		<td><%= @airport_infos[:latitude] %></td>
+  		<td><%= @airport_infos["latitude"] %></td>
   	</tr>
   	<tr>
   		<td>Longitude</td>
-  		<td><%= @airport_infos[:longitude] %></td>
+  		<td><%= @airport_infos["longitude"] %></td>
   	</tr>
   	<tr>
   		<td>Altitude</td>
-  		<td><%= @airport_infos[:altitude] %> ft.</td>
+  		<td><%= @airport_infos["altitude"] %> ft.</td>
   	</tr>
   	<tr>
   		<td>Time zone</td>
-  		<td><%= @airport_infos[:timezone] %> UTC</td>
+  		<td><%= @airport_infos["timezone"] %> UTC</td>
   	</tr>
   </table>
 </div>
 
 <div>
-	<iframe src="https://www.google.com/maps/embed/v1/view?key=AIzaSyCm-fNKdjRs0I-tsRVNZJshyA5qWfFsgng&center=<%= @airport_infos[:latitude] %>,<%= @airport_infos[:longitude] %>&zoom=14&maptype=satellite" width=800 height=500></iframe> 
+	<iframe src="https://www.google.com/maps/embed/v1/view?key=AIzaSyCm-fNKdjRs0I-tsRVNZJshyA5qWfFsgng&center=
+    <%= @airport_infos["latitude"] %>,
+    <%= @airport_infos["longitude"] %>
+    &zoom=14&maptype=satellite" 
+    width=800 height=500></iframe> 
 </div>
 
 

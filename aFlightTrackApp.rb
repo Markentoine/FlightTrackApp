@@ -191,11 +191,8 @@ class FlightTrackApp < Sinatra::Base
   end
 
   get '/FlightTrackApp/detailsairport/:id' do |id|
-    raw_airport_infos = @search.airport_details(id)
-    @airport_infos = [:name, :city, :country, :iata, :icao, :latitude, :longitude, :altitude, :timezone]
-                     .zip(*raw_airport_infos)
-                     .to_h
-    @airport_summary, @airport_images = fetch_from_wikipedia(@airport_infos[:name])
+    @airport_infos = @search.airport_details(id)
+    @airport_summary, @airport_images = fetch_from_wikipedia(@airport_infos['name'])
     erb :detailairport
   end
 

@@ -27,7 +27,7 @@ class Search
       WHERE id = $1
     SQL
 
-    query(sql, id).values
+    query(sql, id).each.first
   end
 
   def all_cities_with_airports_in_a_country(country)
@@ -66,7 +66,11 @@ class Search
   end
 
   def autocomplete_city_list(city, _, country)
-    sql = "SELECT DISTINCT city FROM airports WHERE country ILIKE $1 AND city ILIKE $2"
+    sql = <<~SQL
+      SELECT DISTINCT city 
+        FROM airports 
+       WHERE country ILIKE $1 AND city ILIKE $2
+    SQL
 
     query(sql, country,"#{city}%").column_values(0).compact
   end
