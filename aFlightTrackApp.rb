@@ -54,6 +54,7 @@ class FlightTrackApp < Sinatra::Base
     end
 
     def filter_jpg_urls(urls)
+      return [] if urls.nil?
       urls.reduce([]) do |result, url|
         result << url if url.match(/.jpg/)
         result
