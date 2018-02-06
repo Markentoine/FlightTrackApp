@@ -1,43 +1,30 @@
-<h2>Search Airports</h2>
 
-<div class="flightsearch">
+<div class="flight-search">
   <form class="airportsearch" action="/FlightTrackApp/searchairport" method="post">
     <input id="country" type="text" name="from_country" placeholder="country">
 
     <input id="city" type="text" name="from_city" placeholder="city">
-    <button type="submit">Search</button>
+    <button id="search" type="submit">Search</button>
   </form>
 </div>
 
-<% if session[:airports] %>
-  <ul>
-    <% session.delete(:airports).each do |airport_infos| %>
-    <li><form action="/FlightTrackApp/detailsairport/<%= airport_infos[:id] %>" method="get">
-          <button type="submit">
-            <div>
-              <img src="https://maps.googleapis.com/maps/api/staticmap?center=<%= airport_infos[:latitude] %>,<%= airport_infos[:longitude] %>&zoom=13&size=400x400&maptype=terrain&key=AIzaSyCwSphWJCzmNw6LlcDF3aFXnjQ1pmquXj8">
+<div>
+  <% if session[:airports] %>
+    <ul class="maps-airports">
+      <% session.delete(:airports).each do |airport_infos| %>
+      <li><form action="/FlightTrackApp/detailsairport/<%= airport_infos[:id] %>" method="get">
+            <div class="mini-map-airport">
+              <button type="submit">
+              <img id="mini-map" src="https://maps.googleapis.com/maps/api/staticmap?center=<%= airport_infos[:latitude] %>,<%= airport_infos[:longitude] %>&zoom=13&size=200x200&maptype=terrain&key=AIzaSyCwSphWJCzmNw6LlcDF3aFXnjQ1pmquXj8">
+              </button>
+              <h4><%= airport_infos[:name] %></h4>
             </div>
-          </button>
-          <h4><%= airport_infos[:name] %></h4>
-        </form>
-    </li>
-    <% end %>
-  </ul>
-<% elsif session[:cities] %>
-  <div id="list-cities">
-    <ul class="cities">
-      <% session.delete(:cities).each do |city| %>
-        <li>
-          <form action=/FlightTrackApp/searchairport method="post">
-            <button type="submit">
-              <%= city %>
-            </button>
           </form>
-        </li>
+      </li>
       <% end %>
-  </ul>
-  </div>
-<% end %>
+    </ul>
+  <% end %>
+</div>
 
 <script>
 $(document).ready(function() {
