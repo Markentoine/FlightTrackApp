@@ -1,12 +1,13 @@
 html {
   font-family: 'Lato', sans-serif;
 	font-size: 16px;
-	color: black;
-	background-color: white;
+	color: #CCC79E;
+	background-color: #72748D;
 }
 
 header{
   display: flex;
+  background-image: url("/splash.jpg");
 }
 
 header h1{
@@ -18,12 +19,21 @@ nav{
   margin-left: auto;
 }
 
-
+.container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 
 .credit {
   display: block;
   font-size: 0.5em;
 }
+
+div{
+  border: 0.1rem solid red;
+}
+
 /**=============
     Layout
 =============**/
@@ -32,9 +42,8 @@ header a {
   font-family: 'Roboto', 'Lato', sans-serif;
   font-size: 2rem;
   font-weight: 700;
-  color: #081739;
+  color: #CCC79E;
   text-decoration-line: none;
-  background-image: url("/splash.jpg");
 }
 
 .container h2 {
@@ -126,7 +135,7 @@ div.flight-search input {
   padding: .5em;
   font-size: 1.2em;
   width: 25em;
-  border: 1px solid blue;
+  border: 0.1rem solid blue;
   border-radius: 0.5rem;
   padding-left: 2rem;
 }
@@ -137,9 +146,9 @@ form.airportsearch input {
 }
 
 form.airportsearch button {
-  margin-top: 1em;
-  height: 3.2em;
-  width: 8em;
+  margin-top: 1rem;
+  height: 3.2rem;
+  width: 8rem;
 }
 
 .hero .splash {
@@ -179,22 +188,22 @@ form.airportsearch button {
 }
 
 .hero p {
-  letter-spacing: .06em;
+  letter-spacing: .06rem;
   text-align: center;
-  font-size: 2em;
+  font-size: 2rem;
   font-weight: 700;
   color: white;
 }
 
 .hero form {
   display: inline-block;
-  margin-right: .5em;
+  margin-right: .5rem;
 }
 
 .hero span {
   text-align: center;
-  letter-spacing: .08em;
-  font-size: 2em;
+  letter-spacing: .08rem;
+  font-size: 2rem;
   font-weight: 300;
   text-transform: uppercase;
 }
@@ -203,12 +212,12 @@ ul.links {
   margin: auto;
   display: block;
   float: center;
-  width: 51.5em;
+  width: 51.5rem;
 }
 
 .links li {
   display: inline-block;
-  margin: 0 1em 5em 1em;
+  margin: 0 1rem 5rem 1rem;
 }
 
 .links a {
@@ -219,18 +228,18 @@ ul.links {
   border: none;
   background-size: cover;
   background-repeat: no-repeat;
-  width: 15em;
-  height: 15em;
+  width: 15rem;
+  height: 15rem;
 }
 
 @media screen and (max-width: 800px) {
   .links img {
-    width: 10em;
-    height: 10em;
+    width: 10rem;
+    height: 10rem;
   }
 
   ul.links {
-    width: 36.5em;
+    width: 36.5rem;
   }
 }
 
@@ -312,11 +321,14 @@ ul.links {
   border: 0.2rem solid blue;
 }
 
+.world-map{
+  margin: 2rem 0 2rem 0;
+}
 
 /**=============
   Detailed Infos
 =============**/
 
 table, th, td {
-    border: 1px solid black;
+    border: 1px solid blue;
 }
