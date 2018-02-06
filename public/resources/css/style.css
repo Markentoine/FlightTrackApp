@@ -39,6 +39,7 @@ nav{
 
 header a {
   font-size: 2rem;
+  font-family: 'Megrim';
   font-weight: 700;
   color: #F5EFBE;
   text-decoration-line: none;
@@ -131,12 +132,12 @@ form div {
 
 .hero .splash {
   margin: auto;
-  width: 180rem;
+  width: 100%;
   height: 24.2rem;
   background-image: url("/splash.jpg");
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: 65% 35%;
+  border-right: .1rem solid #F5EFBE;
 }
 
 @media screen and (max-width: 1367px) {
@@ -164,7 +165,7 @@ form div {
 }
 
 #sky3{
-  margin-left: 62rem;
+  margin-left: 61rem;
 }
 
 #sky2{
@@ -194,7 +195,9 @@ form div {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%
+  width: 100%;
+  height: auto;
+  margin-top: 3rem;
 }
 
 .links a {
@@ -207,11 +210,12 @@ form div {
   background-repeat: no-repeat;
   width: 15rem;
   height: 15rem;
-  margin: 3rem 1rem 0 1rem;
 }
 
 .choices{
   display: inline-flex;
+  justify-content: space-around;
+  width: 100%;
 }
 
 .choice{
