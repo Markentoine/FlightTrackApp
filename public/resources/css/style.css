@@ -1,5 +1,5 @@
 html {
-  font-family: 'Lato', sans-serif;
+  font-family: 'Roboto', 'Lato', sans-serif;
 	font-size: 16px;
 	color: #CCC79E;
 	background-color: #CCC79E;
@@ -8,6 +8,7 @@ html {
 header{
   display: flex;
   background-image: url("/splash.jpg");
+  border-bottom: 0.1rem solid #F5EFBE;
 }
 
 header h1{
@@ -37,7 +38,6 @@ nav{
 =============**/
 
 header a {
-  font-family: 'Roboto', 'Lato', sans-serif;
   font-size: 2rem;
   font-weight: 700;
   color: #F5EFBE;
@@ -97,7 +97,7 @@ div.message p.alert {
 }
 
 .hero nav button.attention {
-  border: 1.5px solid #CFCFCF;
+  border: 1.5px solid #F5EFBE;
   border-radius: 4px;
 }
 
@@ -116,7 +116,6 @@ div.message p.alert {
 .homepage a {
   text-transform: uppercase;
   font-size: 2em;
-  font-weight: 700;
   padding: 1em 0.2em;
   display: block;
   vertical-align: center;
@@ -132,7 +131,7 @@ form div {
 
 .hero .splash {
   margin: auto;
-  width: 2880px;
+  width: 180rem;
   height: 24rem;
   background-image: url("/splash.jpg");
   background-size: cover;
@@ -188,16 +187,12 @@ form div {
   color: #F5EFBE;
 }
 
-ul.links {
-  margin: auto;
-  display: block;
-  float: center;
-  width: 51.5rem;
-}
-
-.links li {
-  display: inline-block;
-  margin: 0 1rem 5rem 1rem;
+.links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%
 }
 
 .links a {
@@ -210,6 +205,24 @@ ul.links {
   background-repeat: no-repeat;
   width: 15rem;
   height: 15rem;
+  margin: 3rem 1rem 0 1rem;
+}
+
+.choices{
+  display: inline-flex;
+}
+
+.choice{
+  display: flex;
+  flex-direction: column;
+}
+
+.choice p{
+  color: #403B0F;
+}
+
+.credit{
+  margin-top: 4rem;
 }
 
 @media screen and (max-width: 800px) {
@@ -272,9 +285,6 @@ ul.links {
 .ui-helper-hidden-accessible {
   display: none;
 	margin-left: auto;
-}
-
-.container{
 }
 
 /**=============
