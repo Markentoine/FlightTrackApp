@@ -17,7 +17,7 @@
                 <button type="submit">
                 <img id="mini-map" src="https://maps.googleapis.com/maps/api/staticmap?center=<%=   airport_infos[:latitude] %>,<%= airport_infos[:longitude] %>&zoom=13&size=200x  200&maptype=terrain&key=AIzaSyCwSphWJCzmNw6LlcDF3aFXnjQ1pmquXj8  ">
                 </button>
-                <h4><%= airport_infos[:name] %></h4>
+                <h4 id="airport-name"><%= airport_infos[:name] %></h4>
               </div>
             </form>
         </li>
@@ -26,7 +26,7 @@
     <% end %>
   </div>
   
-  <div class="world-map" style="width: 96rem; height: 36rem">
+  <div class="world-map">
     <div id="map" style="height: 100%"></div>
   </div>
 </div>
