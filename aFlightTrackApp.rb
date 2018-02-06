@@ -46,6 +46,7 @@ class FlightTrackApp < Sinatra::Base
       jpg_images_urls = filter_jpg_urls(images_urls)[0..2] if images_urls
 
       if wikipedia_page && summary
+        jpg_images_urls = jpg_images_urls[0..2]
         [summary, jpg_images_urls]
       else
         [ nil, []]
