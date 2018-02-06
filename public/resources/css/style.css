@@ -8,7 +8,7 @@ html {
 header{
   display: flex;
   background-image: url("/splash.jpg");
-  border-bottom: 0.1rem solid #F5EFBE;
+  border-bottom: 0.3rem solid #F5EFBE;
 }
 
 header h1{
@@ -39,6 +39,7 @@ nav{
 
 header a {
   font-size: 2rem;
+  font-family: 'Megrim';
   font-weight: 700;
   color: #F5EFBE;
   text-decoration-line: none;
@@ -131,12 +132,12 @@ form div {
 
 .hero .splash {
   margin: auto;
-  width: 180rem;
-  height: 24rem;
+  width: 100%;
+  height: 24.2rem;
   background-image: url("/splash.jpg");
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: 50% 50%;
+  border-right: .1rem solid #F5EFBE;
 }
 
 @media screen and (max-width: 1367px) {
@@ -156,21 +157,23 @@ form div {
   right: 0;
 }
 
-.hero div.center {
-  position: absolute;
-  margin: auto;
-  top: 12rem;
-  left: 10%;
-  right: 10%;
-  height: 6rem;
+.center {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+  height: auto;
 }
 
-.hero p {
-  letter-spacing: .06rem;
-  text-align: center;
-  font-size: 2rem;
-  font-weight: 700;
-  color: #F5EFBE;
+#sky3{
+  margin-left: 61rem;
+}
+
+#sky2{
+  margin-left: 40rem;
+}
+
+#sky1{
+  margin-left: 37rem;
 }
 
 .hero form {
@@ -178,11 +181,11 @@ form div {
   margin-right: .5rem;
 }
 
-.hero span {
-  text-align: center;
-  letter-spacing: .08rem;
-  font-size: 2rem;
-  font-weight: 300;
+.hero p {
+  font-family: 'Megrim';
+  margin-left: 2rem;
+  letter-spacing: .1rem;
+  font-size: 6.3rem;
   text-transform: uppercase;
   color: #F5EFBE;
 }
@@ -192,7 +195,9 @@ form div {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%
+  width: 100%;
+  height: auto;
+  margin-top: 3rem;
 }
 
 .links a {
@@ -205,11 +210,12 @@ form div {
   background-repeat: no-repeat;
   width: 15rem;
   height: 15rem;
-  margin: 3rem 1rem 0 1rem;
 }
 
 .choices{
   display: inline-flex;
+  justify-content: space-around;
+  width: 100%;
 }
 
 .choice{
@@ -334,7 +340,6 @@ form.airportsearch{
   justify-content: center;
   width: 100%;
   margin-top: 1rem;
-  border: 1px solid red;
 }
 
 form.airportsearch input {
