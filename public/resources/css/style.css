@@ -23,6 +23,7 @@ nav{
   display: flex;
   flex-direction: column;
   justify-content: center;
+  color: #403B0F;
 }
 
 .credit {
@@ -39,7 +40,7 @@ header a {
   font-family: 'Roboto', 'Lato', sans-serif;
   font-size: 2rem;
   font-weight: 700;
-  color: #CCC79E;
+  color: #F5EFBE;
   text-decoration-line: none;
 }
 
@@ -86,6 +87,7 @@ div.message p.alert {
   padding: 15px;
   text-transform: uppercase;
   background-color: transparent;
+  color: #F5EFBE;
   border: none;
 }
 
@@ -123,29 +125,9 @@ div.message p.alert {
 /**=============
   Landing Page
 =============**/
+
 form div {
   padding: .5em;
-}
-
-div.flight-search input {
-  display: block;
-  padding: .5em;
-  font-size: 1.2em;
-  width: 25em;
-  border: 0.1rem solid #403B0F;
-  border-radius: 0.5rem;
-  padding-left: 2rem;
-}
-
-form.airportsearch input {
-  display: inline-block;
-  width: 15em;
-}
-
-form.airportsearch button {
-  margin-top: 1rem;
-  height: 3.2rem;
-  width: 8rem;
 }
 
 .hero .splash {
@@ -189,7 +171,7 @@ form.airportsearch button {
   text-align: center;
   font-size: 2rem;
   font-weight: 700;
-  color: white;
+  color: #F5EFBE;
 }
 
 .hero form {
@@ -203,6 +185,7 @@ form.airportsearch button {
   font-size: 2rem;
   font-weight: 300;
   text-transform: uppercase;
+  color: #F5EFBE;
 }
 
 ul.links {
@@ -299,7 +282,6 @@ ul.links {
 =============**/
 .flight-search{
   display: flex;
-  justify-content: center;
 }
 .maps-airports{
   display: inline-flex;
@@ -324,6 +306,38 @@ ul.links {
   width: 100%;
   height: 36rem;
   border: 0.2rem solid #403B0F;
+}
+
+div.flight-search input {
+  display: block;
+  padding: .5em;
+  font-size: 1.2em;
+  width: 25em;
+  border: 0.1rem solid #403B0F;
+  border-radius: 0.5rem;
+  padding-left: 2rem;
+}
+
+form.airportsearch{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 1rem;
+  border: 1px solid red;
+}
+
+form.airportsearch input {
+  width: 17em;
+  padding-left: 1rem;
+  background-color: #F5EFBE;
+}
+
+form.airportsearch button {
+  width: 6rem;
+  height: 100%;
+  border-radius: .5rem;
+  background-color: #9D976A;
 }
 
 /**=============
