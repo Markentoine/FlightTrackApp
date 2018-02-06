@@ -26,7 +26,12 @@
   <% end %>
 </div>
 
-<script>
+<div class="world-map" style="width: 96rem; height: 36rem">
+  <div id="map" style="height: 100%">
+  </div>
+</div>
+
+<script> // for autocompletion in the search fields
 $(document).ready(function() {
   $("#country").keyup(function() {
 
@@ -50,4 +55,36 @@ $(document).ready(function() {
     });
   });
 });
+</script>
+
+<script> // for the world map with all airports marked
+
+  function initMap() {
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 2,
+      center: {lat: 39.980180, lng: -8.698117} , 
+    });
+
+    var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+    var markers = locations_all_airports.map(function(location, i) {
+      return new google.maps.Marker({
+        position: location,
+        label: labels[i % labels.length]
+      });
+    });
+
+    var markerCluster = new MarkerClusterer(map, markers,
+        {imagePath: '/images/m'});
+  }
+
+  var locations_all_airports = JSON.parse(<%== @locations_all_airports %>);
+</script>
+
+<script src="/markerclusterer.js">
+</script>
+
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvOm_jgslerf1YF_QIeJIMR9zNODoQv6M&callback=initMap">
 </script>

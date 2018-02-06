@@ -19,7 +19,24 @@ class Search
     @db.exec_params(statement, params)
   end
 
-  def airport_details(id)
+  def query_airports(country, city='')
+    city_query = ' AND city ILIKE $2'
+
+    sql = <<~SQL
+      SELECT id, name, latitude, longitude
+      FROM airports
+      WHERE country ILIKE $1
+    SQL
+
+    if city.strip.empty?
+      query(sql, country).values
+    else
+      sql += city_query
+      query(sql, country, city).values
+    end
+  end
+
+  def query_airport_details(id)
     sql = <<~SQL
       SELECT name, city, country, iata, icao,
              latitude, longitude, altitude,timezone
@@ -30,7 +47,7 @@ class Search
     query(sql, id).each.first
   end
 
-  def all_cities_with_airports_in_a_country(country)
+  def query_all_cities_with_airports_in_a_country(country)
     sql = <<~SQL
       SELECT city
       FROM airports
@@ -38,6 +55,15 @@ class Search
     SQL
 
     query(sql, "#{country}%").values
+  end
+
+  def query_locations_all_airports_world
+      sql = <<~SQL
+        SELECT latitude, longitude
+        FROM airports
+      SQL
+
+      query(sql).values
   end
 
   def autocomplete_airport_list(string)
@@ -73,23 +99,6 @@ class Search
     SQL
 
     query(sql, country,"#{city}%").column_values(0).compact
-  end
-
-  def query_airports(country, city='')
-    city_query = ' AND city ILIKE $2'
-
-    sql = <<~SQL
-      SELECT id, name, latitude, longitude
-      FROM airports
-      WHERE country ILIKE $1
-    SQL
-
-    if city.strip.empty?
-      query(sql, country).values
-    else
-      sql += city_query
-      query(sql, country, city).values
-    end
   end
 
   private

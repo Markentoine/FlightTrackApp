@@ -72,6 +72,10 @@ class FlightTrackApp < Sinatra::Base
     @users = Users.new(logger)
   end
 
+  before '/FlightTrackApp/airports' do
+    @locations_all_airports = File.open(File.join(data_path, 'locations_airports.json')).read
+  end
+
   after do
     @search.disconnect
   end
@@ -191,7 +195,7 @@ class FlightTrackApp < Sinatra::Base
   end
 
   get '/FlightTrackApp/detailsairport/:id' do |id|
-    @airport_infos = @search.airport_details(id)
+    @airport_infos = @search.query_airport_details(id)
     @airport_summary, @airport_images = fetch_from_wikipedia(@airport_infos['name'])
     erb :detailairport
   end

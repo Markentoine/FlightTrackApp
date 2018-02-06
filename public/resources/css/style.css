@@ -18,9 +18,7 @@ nav{
   margin-left: auto;
 }
 
-div{
-  border: 1px solid red;
-}
+
 
 .credit {
   display: block;
@@ -313,6 +311,7 @@ ul.links {
 #mini-map{
   border: 0.2rem solid blue;
 }
+
 
 /**=============
   Detailed Infos
