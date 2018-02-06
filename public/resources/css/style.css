@@ -1,12 +1,14 @@
 html {
-  font-family: 'Lato', sans-serif;
+  font-family: 'Roboto', 'Lato', sans-serif;
 	font-size: 16px;
-	color: black;
-	background-color: white;
+	color: #CCC79E;
+	background-color: #CCC79E;
 }
 
 header{
   display: flex;
+  background-image: url("/splash.jpg");
+  border-bottom: 0.1rem solid #F5EFBE;
 }
 
 header h1{
@@ -18,19 +20,27 @@ nav{
   margin-left: auto;
 }
 
+.container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #403B0F;
+}
+
 .credit {
   display: block;
   font-size: 0.5em;
 }
+
+
 /**=============
     Layout
 =============**/
 
 header a {
-  font-family: 'Roboto', 'Lato', sans-serif;
-  font-size: 2em;
+  font-size: 2rem;
   font-weight: 700;
-  color: #081739;
+  color: #F5EFBE;
   text-decoration-line: none;
 }
 
@@ -51,13 +61,13 @@ div.message {
 }
 
 div.message p {
-  padding: 0.1em 2em;
-  border-radius: 0 0 5px 5px;
-  line-height: 1.5em;
+  padding: 0.1rem 2rem;
+  border-radius: 0 0 0.3rem 0.3rem;
+  line-height: 1.5rem;
   text-align: center;
-  font-size: 1.2em;
+  font-size: 1.2rem;
   font-weight: 400;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.05rem;
 }
 
 div.message p.success {
@@ -77,6 +87,7 @@ div.message p.alert {
   padding: 15px;
   text-transform: uppercase;
   background-color: transparent;
+  color: #F5EFBE;
   border: none;
 }
 
@@ -86,7 +97,7 @@ div.message p.alert {
 }
 
 .hero nav button.attention {
-  border: 1.5px solid #CFCFCF;
+  border: 1.5px solid #F5EFBE;
   border-radius: 4px;
 }
 
@@ -105,7 +116,6 @@ div.message p.alert {
 .homepage a {
   text-transform: uppercase;
   font-size: 2em;
-  font-weight: 700;
   padding: 1em 0.2em;
   display: block;
   vertical-align: center;
@@ -114,32 +124,15 @@ div.message p.alert {
 /**=============
   Landing Page
 =============**/
+
 form div {
   padding: .5em;
 }
 
-div.flightsearch input {
-  display: block;
-  padding: .5em;
-  font-size: 1.2em;
-  width: 25em;
-}
-
-form.airportsearch input {
-  display: inline-block;
-  width: 15em;
-}
-
-form.airportsearch button {
-  margin-top: 1em;
-  height: 3.2em;
-  width: 8em;
-}
-
 .hero .splash {
   margin: auto;
-  width: 2880px;
-  height: 500px;
+  width: 180rem;
+  height: 24rem;
   background-image: url("/splash.jpg");
   background-size: cover;
   background-repeat: no-repeat;
@@ -155,54 +148,51 @@ form.airportsearch button {
 .hero nav {
   display: block;
   float: right;
-  padding-right: 1em;
+  padding-right: 1rem;
   text-align: right;
   position: absolute;
   margin: auto;
-  top: 1.7em;
+  top: 1.7rem;
   right: 0;
 }
 
 .hero div.center {
   position: absolute;
   margin: auto;
-  top: 200px;
+  top: 12rem;
   left: 10%;
   right: 10%;
-  height:100px;
+  height: 6rem;
 }
 
 .hero p {
-  letter-spacing: .06em;
+  letter-spacing: .06rem;
   text-align: center;
-  font-size: 2em;
+  font-size: 2rem;
   font-weight: 700;
-  color: white;
+  color: #F5EFBE;
 }
 
 .hero form {
   display: inline-block;
-  margin-right: .5em;
+  margin-right: .5rem;
 }
 
 .hero span {
   text-align: center;
-  letter-spacing: .08em;
-  font-size: 2em;
+  letter-spacing: .08rem;
+  font-size: 2rem;
   font-weight: 300;
   text-transform: uppercase;
+  color: #F5EFBE;
 }
 
-ul.links {
-  margin: auto;
-  display: block;
-  float: center;
-  width: 51.5em;
-}
-
-.links li {
-  display: inline-block;
-  margin: 0 1em 5em 1em;
+.links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%
 }
 
 .links a {
@@ -213,18 +203,36 @@ ul.links {
   border: none;
   background-size: cover;
   background-repeat: no-repeat;
-  width: 15em;
-  height: 15em;
+  width: 15rem;
+  height: 15rem;
+  margin: 3rem 1rem 0 1rem;
+}
+
+.choices{
+  display: inline-flex;
+}
+
+.choice{
+  display: flex;
+  flex-direction: column;
+}
+
+.choice p{
+  color: #403B0F;
+}
+
+.credit{
+  margin-top: 4rem;
 }
 
 @media screen and (max-width: 800px) {
   .links img {
-    width: 10em;
-    height: 10em;
+    width: 10rem;
+    height: 10rem;
   }
 
   ul.links {
-    width: 36.5em;
+    width: 36.5rem;
   }
 }
 
@@ -279,22 +287,67 @@ ul.links {
 	margin-left: auto;
 }
 
-.container{
-	
-}
-
 /**=============
   Airports
 =============**/
-#list-cities {
+.flight-search{
   display: flex;
-  border: 1px solid red;
-  max-width: 100%;
-  overflow: scroll;
 }
-ul.cities{
+.maps-airports{
+  display: inline-flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.mini-map-airport{
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  border: 0.2rem solid #403B0F;
+}
+
+#airport-name{
+  color: #403B0F;
+  font-size: 0.7rem;
+}
+
+.world-map{
+  margin: 2rem 0 2rem 0;
+  width: 100%;
+  height: 36rem;
+  border: 0.2rem solid #403B0F;
+}
+
+div.flight-search input {
+  display: block;
+  padding: .5em;
+  font-size: 1.2em;
+  width: 25em;
+  border: 0.1rem solid #403B0F;
+  border-radius: 0.5rem;
+  padding-left: 2rem;
+}
+
+form.airportsearch{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 1rem;
+  border: 1px solid red;
+}
+
+form.airportsearch input {
+  width: 17em;
+  padding-left: 1rem;
+  background-color: #F5EFBE;
+}
+
+form.airportsearch button {
+  width: 6rem;
+  height: 100%;
+  border-radius: .5rem;
+  background-color: #9D976A;
 }
 
 /**=============
@@ -302,5 +355,5 @@ ul.cities{
 =============**/
 
 table, th, td {
-    border: 1px solid black;
+    border: 1px solid blue;
 }

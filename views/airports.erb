@@ -1,45 +1,37 @@
-<h2>Search Airports</h2>
+<div class="container">
+  <div class="flight-search">
+    <form class="airportsearch" action="/FlightTrackApp/searchairport" method="post">
+      <input id="country" type="text" name="from_country" placeholder="country">
+  
+      <input id="city" type="text" name="from_city" placeholder="city">
+      <button id="search" type="submit">Search</button>
+    </form>
+  </div>
 
-<div class="flightsearch">
-  <form class="airportsearch" action="/FlightTrackApp/searchairport" method="post">
-    <input id="country" type="text" name="from_country" placeholder="country">
-
-    <input id="city" type="text" name="from_city" placeholder="city">
-    <button type="submit">Search</button>
-  </form>
+  <div class="airports">
+    <% if session[:airports] %>
+      <ul class="maps-airports">
+        <% session.delete(:airports).each do |airport_infos| %>
+        <li><form action="/FlightTrackApp/detailsairport/<%= airport_infos[:id] %>" method="get">
+              <div class="mini-map-airport">
+                <button type="submit">
+                <img id="mini-map" src="https://maps.googleapis.com/maps/api/staticmap?center=<%=   airport_infos[:latitude] %>,<%= airport_infos[:longitude] %>&zoom=13&size=200x  200&maptype=terrain&key=AIzaSyCwSphWJCzmNw6LlcDF3aFXnjQ1pmquXj8  ">
+                </button>
+                <h4 id="airport-name"><%= airport_infos[:name] %></h4>
+              </div>
+            </form>
+        </li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+  
+  <div class="world-map">
+    <div id="map" style="height: 100%"></div>
+  </div>
 </div>
 
-<% if session[:airports] %>
-  <ul>
-    <% session.delete(:airports).each do |airport_infos| %>
-    <li><form action="/FlightTrackApp/detailsairport/<%= airport_infos[:id] %>" method="get">
-          <button type="submit">
-            <div>
-              <img src="https://maps.googleapis.com/maps/api/staticmap?center=<%= airport_infos[:latitude] %>,<%= airport_infos[:longitude] %>&zoom=13&size=400x400&maptype=terrain&key=AIzaSyCwSphWJCzmNw6LlcDF3aFXnjQ1pmquXj8">
-            </div>
-          </button>
-          <h4><%= airport_infos[:name] %></h4>
-        </form>
-    </li>
-    <% end %>
-  </ul>
-<% elsif session[:cities] %>
-  <div id="list-cities">
-    <ul class="cities">
-      <% session.delete(:cities).each do |city| %>
-        <li>
-          <form action=/FlightTrackApp/searchairport method="post">
-            <button type="submit">
-              <%= city %>
-            </button>
-          </form>
-        </li>
-      <% end %>
-  </ul>
-  </div>
-<% end %>
-
-<script>
+<script> // for autocompletion in the search fields
 $(document).ready(function() {
   $("#country").keyup(function() {
 
@@ -63,4 +55,36 @@ $(document).ready(function() {
     });
   });
 });
+</script>
+
+<script> // for the world map with all airports marked
+
+  function initMap() {
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 2,
+      center: {lat: 39.980180, lng: -8.698117} , 
+    });
+
+    var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+    var markers = locations_all_airports.map(function(location, i) {
+      return new google.maps.Marker({
+        position: location,
+        label: labels[i % labels.length]
+      });
+    });
+
+    var markerCluster = new MarkerClusterer(map, markers,
+        {imagePath: '/images/m'});
+  }
+
+  var locations_all_airports = JSON.parse(<%== @locations_all_airports %>);
+</script>
+
+<script src="/markerclusterer.js">
+</script>
+
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvOm_jgslerf1YF_QIeJIMR9zNODoQv6M&callback=initMap">
 </script>

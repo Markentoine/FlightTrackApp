@@ -43,7 +43,7 @@ class FlightTrackApp < Sinatra::Base
       wikipedia_page = Wikipedia.find(name)
       summary = wikipedia_page.summary
       images_urls = wikipedia_page.image_urls
-      jpg_images_urls = filter_jpg_urls(images_urls)
+      jpg_images_urls = filter_jpg_urls(images_urls)[0..2]
 
       if wikipedia_page && summary
         jpg_images_urls = jpg_images_urls[0..2]
@@ -54,7 +54,7 @@ class FlightTrackApp < Sinatra::Base
     end
 
     def filter_jpg_urls(urls)
-      urls.reduce([]) do |result, url| 
+      urls.reduce([]) do |result, url|
         result << url if url.match(/.jpg/)
         result
       end
@@ -71,6 +71,10 @@ class FlightTrackApp < Sinatra::Base
 
     @search = Search.new(logger)
     @users = Users.new(logger)
+  end
+
+  before '/FlightTrackApp/airports' do
+    @locations_all_airports = File.open(File.join(data_path, 'locations_airports.json')).read
   end
 
   after do
@@ -112,7 +116,8 @@ class FlightTrackApp < Sinatra::Base
   end
 
   post '/FlightTrackApp/users/signup' do
-    @users_infos = [params[:username], params[:password],
+    @users_infos = [params[:username],
+                    params[:password],
                     params[:confirm_password]]
     @invalid_infos = invalid_inputs(@users_infos)
 
@@ -179,8 +184,8 @@ class FlightTrackApp < Sinatra::Base
       halt erb :airports
     end
 
-    results = 
-      raw_results.map do |airport_infos| 
+    results =
+      raw_results.map do |airport_infos|
         [:id, :name, :latitude, :longitude]
           .zip(airport_infos)
           .to_h
@@ -191,7 +196,7 @@ class FlightTrackApp < Sinatra::Base
   end
 
   get '/FlightTrackApp/detailsairport/:id' do |id|
-    @airport_infos = @search.airport_details(id)
+    @airport_infos = @search.query_airport_details(id)
     @airport_summary, @airport_images = fetch_from_wikipedia(@airport_infos['name'])
     erb :detailairport
   end
