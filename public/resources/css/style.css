@@ -242,11 +242,12 @@ div.choice{
 
 .choice img{
   height: 12rem;
+  filter: brightness(140%);
 }
 
 .links img:hover {
   border: none;
-  filter: brightness(150%);
+  filter: brightness(180%);
 }
 
 .links a {
