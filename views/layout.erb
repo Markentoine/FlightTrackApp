@@ -9,14 +9,14 @@
   <script src="/resources/javascript/jquery-ui-1.12.1/jquery-ui.min.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Megrim" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Questrial" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,900" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
 </head>
 
 <body>
 
   <header>
+
     <div class ="hero">
+
       <div class="message">
         <% if session[:success] %>
           <p class="success"><%= session.delete(:success) %></p>
@@ -25,13 +25,9 @@
         <% end %>
       </div>
 
-      <%== yield_content :hero %>
-
-      <% unless homepage? %>
-        <div class="homepage">
-          <a href="/">/Ground2Sky/</a>
-        </div>
-      <% end %>
+      <div class="homepage">
+        <a href="/">/Ground2Sky/</a>
+      </div>
 
       <nav>
         <div>

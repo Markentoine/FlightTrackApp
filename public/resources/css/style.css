@@ -2,7 +2,7 @@ html {
   font-family: 'Questrial', sans-serif;
 	font-size: 16px;
 	color: #CCC79E;
-	background-color: #CCC79E;
+	background-color: #64603f;
 }
 
 header{
@@ -20,18 +20,17 @@ nav{
   margin-left: auto;
 }
 
+footer{
+  width: 100%;
+  height: auto;
+}
+
 .container{
   display: flex;
   flex-direction: column;
   justify-content: center;
   color: #403B0F;
 }
-
-.credit {
-  display: block;
-  font-size: 0.5em;
-}
-
 
 /**=============
     Layout
@@ -81,7 +80,7 @@ div.message p.alert {
   background-color: #F797BA;
 }
 
-.hero nav button {
+nav button {
   color: #F0F0F0;
   font-family: 'Questrial', sans-serif;
   font-size: 1em;
@@ -92,29 +91,29 @@ div.message p.alert {
   border: none;
 }
 
-.hero nav button:hover {
-  color: #515151;
+nav button:hover {
+  color: #F5EFBE;
   cursor: pointer;
 }
 
-.hero nav button.attention {
+nav button.attention {
   border: 1.5px solid #F5EFBE;
   border-radius: 4px;
 }
 
-.hero nav button.attention:hover {
+nav button.attention:hover {
   color: #515151;
   background-color: #CFCFCF;
 }
 
-.hero nav p {
+nav p {
   display: inline-block;
   font-size: 1em;
   font-weight: 300;
   font-style: italic;
 }
 
-.homepage a {
+a {
   text-transform: uppercase;
   font-size: 2em;
   padding: 1em 0.2em;
@@ -122,31 +121,11 @@ div.message p.alert {
   vertical-align: center;
 }
 
-/**=============
-  Landing Page
-=============**/
-
 form div {
   padding: .5em;
 }
 
-.hero .splash {
-  margin: auto;
-  width: 100%;
-  height: 24.2rem;
-  background-image: url("/splash.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  border-right: .1rem solid #F5EFBE;
-}
-
-@media screen and (max-width: 1367px) {
-  .hero .splash {
-    width: 1351px;
-  }
-}
-
-.hero nav {
+nav {
   display: block;
   float: right;
   padding-right: 1rem;
@@ -157,37 +136,61 @@ form div {
   right: 0;
 }
 
-.center {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 1rem;
-  height: auto;
-}
-
-#sky3{
-  margin-left: 61rem;
-}
-
-#sky2{
-  margin-left: 40rem;
-}
-
-#sky1{
-  margin-left: 37rem;
-}
-
-.hero form {
+form {
   display: inline-block;
   margin-right: .5rem;
 }
 
-.hero p {
+/**=============
+  Landing Page
+=============**/
+
+.landing {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+}
+
+.splash {
+  display: flex;
+  width: 100%;
+  height: auto;
+  background-image: url("/splash.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  width: 25%;
+  height: 28rem;
+  border: 1px solid #F5EFBE;
+}
+
+.title p {
   font-family: 'Megrim';
-  margin-left: 2rem;
   letter-spacing: .1rem;
-  font-size: 6.3rem;
+  font-size: 4rem;
   text-transform: uppercase;
   color: #F5EFBE;
+}
+
+#sky3{
+  margin-left: 15.5rem;
+  margin-top: -0.3rem;
+}
+
+#sky2{
+}
+
+#sky1{
+}
+
+#ground{
+  margin-left: -0.3rem;
+  margin-top: 24.6rem;
 }
 
 .links {
@@ -197,7 +200,7 @@ form div {
   justify-content: center;
   width: 100%;
   height: auto;
-  margin-top: 3rem;
+  background-image: url("/splash.jpg");
 }
 
 .links a {
@@ -218,39 +221,30 @@ form div {
   width: 100%;
 }
 
-.choice{
+div.choice{
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 20rem;
 }
 
-.choice p{
-  color: #403B0F;
+.choice p {
+  font-size: 1.4em;
+  text-align: center;
+  text-transform: uppercase;
+  color: #9D976A;
+  margin: 0;
+  margin-bottom: 2rem;
 }
 
-.credit{
-  margin-top: 4rem;
-}
-
-@media screen and (max-width: 800px) {
-  .links img {
-    width: 10rem;
-    height: 10rem;
-  }
-
-  ul.links {
-    width: 36.5rem;
-  }
+.choice img{
+  height: 12rem;
 }
 
 .links img:hover {
   border: none;
-  filter: brightness(120%);
-}
-
-.links p {
-  font-size: 1.4em;
-  text-align: center;
-  text-transform: uppercase;
+  filter: brightness(150%);
 }
 
 .links a {
@@ -268,6 +262,12 @@ form div {
 
 #routes-icon {
   background-image: url("/routes_icon.png");
+}
+
+div.credit{
+  font-family: 'Questrial', sans-serif;
+  font-size: 0.3em;
+  text-decoration: none;
 }
 
 /**=============
