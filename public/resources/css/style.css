@@ -166,7 +166,7 @@ form {
   flex-direction: column;
   width: 25%;
   height: 28rem;
-  border: 1px solid #F5EFBE;
+  border-bottom: 1px solid #F5EFBE;
 }
 
 .title p {
