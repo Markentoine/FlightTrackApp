@@ -87,7 +87,7 @@ class FlightTrackApp < Sinatra::Base
   end
 
   get '/FlightTrackApp' do
-    erb :landing
+    erb :landing, layout: false
   end
 
   get '/FlightTrackApp/users/sign' do
