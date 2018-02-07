@@ -32,6 +32,10 @@ footer{
   color: #403B0F;
 }
 
+h2 {
+  font-size: 2em;
+}
+
 /**=============
     Layout
 =============**/
@@ -274,16 +278,25 @@ div.credit{
   Autocomplete
 =============**/
 .ui-autocomplete {
+  font-size: 1.1em;
+  font-family: 'Questrial', sans-serif;
+  color: #757A36;
   display: block;
-  width: 20em;
-  line-height: 1.3em;
-  background-color: white;
+  width: 23em;
+  line-height: 1.4em;
+  background-color: #FCFFDA;
   border: 1px solid #808080;
+  border-radius: 0 0 0.3em 0.3em;
+  padding: 0.1em;
 }
 
 .ui-state-active {
+  color: white;
+  cursor: default;
   display: block;
-  background-color: #7DA7FC;
+  border: 1px solid #FFD795;
+  border-radius: 0.1em;
+  background-color: #E8C385;
 }
 
 .ui-helper-hidden-accessible {
@@ -295,7 +308,7 @@ div.credit{
  Sign-in/Sign-up
 ==============**/
 
-.sign form {
+.forms-input form {
   display: block;
   vertical-align: top;
   margin: 1em auto;
@@ -306,18 +319,18 @@ div.credit{
   background-color: #F4F6E1;
 }
 
-.sign legend {
+.forms-input legend {
   font-size: 2em;
   color: #333;
   padding-bottom: 0.2em;
   border-bottom: 1px solid #CCC;
 }
 
-.sign form div {
+.forms-input form div {
   margin-top: 0.5em;
 }
 
-.sign label {
+.forms-input label {
   font-size: 1.2em;
   color: #909046;
   display: inline-block;
@@ -325,9 +338,10 @@ div.credit{
   text-align: right;
 }
 
-.sign input {
+.forms-input input {
   margin-left: 10px;
   font-size: 1em;
+  font-family: 'Questrial', sans-serif;
   padding: 0.2em;
   width: 12em;
   box-sizing: border-box;
@@ -336,11 +350,11 @@ div.credit{
   vertical-align: center;
 }
 
-.sign input:focus {
+.forms-input input:focus {
   border-color: #555;
 }
 
-.sign button {
+.forms-input button {
   font-size: 1em;
   margin-left: 187px;
   height: 2.5em;
@@ -351,7 +365,7 @@ div.credit{
   border-radius: 0.2em;
 }
 
-.sign button:hover {
+.forms-input button:hover {
   cursor: pointer;
   background-color: #98984B;
 }
@@ -432,3 +446,20 @@ td {
   padding: 1em;
 }
 
+/**=============
+  Route Search
+=============**/
+
+.search form {
+  width: 660px;
+}
+
+.search input {
+  font-size: 1.1em;
+  padding: 0.5em;
+  width: 23em;
+}
+
+.search button {
+  text-transform: uppercase;
+}
