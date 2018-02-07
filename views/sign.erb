@@ -1,39 +1,50 @@
 <div class="sign">
 
-  <div class="container">
-    <fieldset >
-      <legend>To sign in</legend>
-      <form action="/FlightTrackApp/users/signin" method="post">
-        <div>
-          <ul>
-            <li><p>User name</p><input type="text" name="username"></li>
-            <li><p>Password</p><input type="password" name="password"></li>
-          </ul>
-        </div>
-            <div><button type="submit" value="Sign in">SUBMIT</button></div>
-      </form>
-    </fieldset>
-  </div>
-  
-  <div class="container">
-    <fieldset >
-      <legend>To register</legend>
-      <form action="/FlightTrackApp/users/signup" method="post">
-        <% if session[:hints] %>
-          <% session[:hints].each do |hint| %>
-            <ul>
-              <li><%= hint %></li>
-            </ul>
-          <% end %>
+  <form action="/FlightTrackApp/users/signin" method="post">
+    <legend>To sign in</legend>
+    <div>
+      <label for="name">User name:</label>
+      <input id="name" type="text" name="username">
+    </div>
+
+    <div>
+      <label for="pw">Password:</label>
+      <input id="pw" type="password" name="password">
+    </div>
+
+    <div>
+      <button type="submit" value="Sign in">SUBMIT</button>
+    </div>
+  </form>
+
+  <form action="/FlightTrackApp/users/signup" method="post">
+    <legend>To register</legend>
+    <ul>
+      <% if session[:hints] %>
+        <% session[:hints].each do |hint| %>
+          <li><%= hint %></li>
         <% end %>
-        <ul>
-          <li><p>User name</p><input type="text" name="username"></li>
-          <li><p>Password</p><input type="password" name="password" placeholder="at least 8 characters"></li>
-          <li><p>Confirm password</p><input type="password" name="confirm_password"></li>
-        </ul>
-        <button type="submit" value="Submit">SUBMIT</button>
-        </form>
-    </fieldset>
-  </div>
+      <% end %>
+    </ul>
+
+    <div>
+      <label for="createuser">User name:</label>
+      <input id="createuser" type="text" name="username">
+    </div>
+
+    <div>
+      <label for="createpw">Password:</label>
+      <input id="createpw" type="password" name="password" placeholder="At least 8 characters">
+    </div>
+
+    <div>
+      <label for="confirmpw">Confirm password:</label>
+      <input id="confirmpw" type="password" name="confirm_password">
+    </div>
+
+    <div>
+      <button type="submit" value="Submit">SUBMIT</button>
+    </div>
+  </form>
 
 </div>
