@@ -183,14 +183,16 @@ form {
 }
 
 #sky2{
+  margin-top: -0.3rem;
 }
 
 #sky1{
+  margin-top: -0.3rem;
 }
 
 #ground{
   margin-left: -0.3rem;
-  margin-top: 24.6rem;
+  margin-top: -0.3rem;
 }
 
 .links {
