@@ -21,6 +21,8 @@ nav{
 }
 
 footer{
+  display: inline-flex;
+  justify-content: space-between;
   width: 100%;
   height: auto;
 }
@@ -29,6 +31,7 @@ footer{
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   color: #403B0F;
 }
 
@@ -150,6 +153,7 @@ form {
   flex-direction: column;
   width: 100%;
   height: auto;
+  filter: brightness(120%);
 }
 
 .splash {
@@ -172,7 +176,7 @@ form {
 .title p {
   font-family: 'Megrim';
   letter-spacing: .1rem;
-  font-size: 4rem;
+  font-size: 5rem;
   text-transform: uppercase;
   color: #F5EFBE;
 }
@@ -183,10 +187,12 @@ form {
 }
 
 #sky2{
+  margin-left: 8rem;
   margin-top: -0.3rem;
 }
 
 #sky1{
+  margin-left: 4rem;
   margin-top: -0.3rem;
 }
 
@@ -242,12 +248,12 @@ div.choice{
 
 .choice img{
   height: 12rem;
-  filter: brightness(140%);
+  filter: brightness(120%);
 }
 
 .links img:hover {
   border: none;
-  filter: brightness(180%);
+  filter: brightness(160%);
 }
 
 .links a {
@@ -271,6 +277,16 @@ div.credit{
   font-family: 'Questrial', sans-serif;
   font-size: 0.3em;
   text-decoration: none;
+}
+
+#notepad, #user{
+  width: 2rem;
+  background-color: #64603f;
+}
+
+footer button{
+  background-color: #64603f;
+  border: none;
 }
 
 /**=============
