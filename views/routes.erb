@@ -1,24 +1,21 @@
-<h2>Search Routes</h2>
-
-<div class="container">
+<section class="forms-input search">
   <form action="/FlightTrackApp/searchflight" method="post">
-    <div class="flightsearch">
-      <fieldset>
-        <legend>Flight from</legend>
-        <input id="flightfrom" type="text" name="from" placeholder="airport name or city">
-      </fieldset>
+    <legend>Search Routes</legend>
+    <div>
+      <label for="flightfrom">Flight from:</label>
+      <input id="flightfrom" type="text" name="from" placeholder="airport name or city">
     </div>
 
-    <div class="flightsearch">
-      <fieldset>
-        <legend>Flight to</legend>
-        <input id="flightto" type="text" name="to" placeholder="airport name or city">
-      </fieldset>
+    <div>
+      <label for="flightto">Flight to:</label>
+      <input id="flightto" type="text" name="to" placeholder="airport name or city">
     </div>
-    <button type="submit">Take off</button>
 
+    <div>
+      <button type="submit">Take off</button>
+    </div>
   </form>
-</div>
+</section>
 
 <script>
   $(document).ready(function() {
