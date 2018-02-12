@@ -218,24 +218,23 @@ class FlightTrackApp < Sinatra::Base
     from_iata = params[:from][0, 3].upcase
     to_iata = params[:to][0, 3].upcase
 
-    if from_iata.empty? || to_iata.empty?
+    coord_from = @search.latitude_longitude(from_iata)
+    coord_to = @search.latitude_longitude(to_iata)
+
+    unless coord_from && coord_to
       session[:alert] = 'Route not found, please try again.'
       halt erb :routes
     end
 
-    coordinate_from = @search.latitude_longitude(from_iata)
-    coordinate_to = @search.latitude_longitude(to_iata)
+    geokit_from = Geokit::LatLng.new(*coord_from)
+    geokit_to = Geokit::LatLng.new(*coord_to)
 
-    coordinate_midpoint = 
-      coordinate_to.map.with_index do |val, idx|
-        (val + coordinate_from[idx]) / 2.0
-      end
-
-    coordinate_midpoint ||= [0, 0]
+    distance = geokit_from.distance_to(geokit_to)
+    geokit_midpoint = geokit_from.midpoint_to(geokit_to)
 
     @coordinate_from, @coordinate_to, @coordinate_midpoint =
-      [coordinate_from, coordinate_to, coordinate_midpoint].map do |coordinate|
-        [:lat, :lng].zip(coordinate).to_h
+      [geokit_from, geokit_to, geokit_midpoint].map do |geokit|
+        [:lat, :lng].zip(geokit.to_a).to_h
       end
 
     erb :routes

@@ -108,7 +108,9 @@ class Search
     SQL
 
     result = query(sql, iata).values[0]
-                             .map(&:to_f)
+    return false if result.nil?
+    
+    result.map(&:to_f)
   end
 
   private

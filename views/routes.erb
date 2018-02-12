@@ -21,15 +21,30 @@
   <% if @coordinate_to && @coordinate_from %>
     <div id="map"></div>
   <% end %>
-  
+
   <script>
 
     function initMap() {
       var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 4,
         center: <%== @coordinate_midpoint.to_json %>,
         mapTypeId: 'terrain'
       });
+
+      var marker1 = new google.maps.Marker({
+        position: <%== @coordinate_from.to_json %>,
+        map: map
+      });
+
+      var marker2 = new google.maps.Marker({
+        position: <%== @coordinate_to.to_json %>,
+        map: map       
+      });
+
+      var bounds = new google.maps.LatLngBounds();
+      bounds.extend(marker1.getPosition());
+      bounds.extend(marker2.getPosition());
+
+      map.fitBounds(bounds);
 
       var flightPlanCoordinates = [
         <%== @coordinate_from.to_json %>,
