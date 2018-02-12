@@ -167,6 +167,7 @@ form {
 
 .title {
   display: flex;
+  flex: 1 1 50%;
   flex-direction: column;
   width: 25%;
   height: 28rem;
@@ -182,14 +183,9 @@ form {
 }
 
 #sky3{
-  margin-left: 15.5rem;
+  text-align: right;
   margin-top: -0.3rem;
-}
-
-#sky2{
-}
-
-#sky1{
+  margin-right: 0.1rem;
 }
 
 #ground{
