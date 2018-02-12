@@ -101,6 +101,16 @@ class Search
     query(sql, country,"#{city}%").column_values(0).compact
   end
 
+  def latitude_longitude(iata)
+    sql = <<~SQL
+      SELECT latitude, longitude
+        FROM airports WHERE iata = $1
+    SQL
+
+    result = query(sql, iata).values[0]
+                             .map(&:to_f)
+  end
+
   private
 
   def invalid_string?(string)

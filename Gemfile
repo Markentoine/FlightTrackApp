@@ -11,6 +11,7 @@ gem 'simplecov'
 gem 'sinatra'
 gem 'sinatra-contrib'
 gem 'wikipedia-client'
+gem 'geokit'
 
 group :production do
   gem 'puma'

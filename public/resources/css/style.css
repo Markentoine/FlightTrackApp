@@ -485,3 +485,7 @@ td {
 .search button {
   text-transform: uppercase;
 }
+
+#map {
+  height: 500px;
+}

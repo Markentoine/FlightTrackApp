@@ -5,6 +5,7 @@ GEM
     bcrypt (3.1.11)
     docile (1.1.5)
     erubis (2.7.0)
+    geokit (1.11.0)
     json (2.1.0)
     minitest (5.11.1)
     multi_json (1.13.1)
@@ -42,6 +43,7 @@ PLATFORMS
 DEPENDENCIES
   bcrypt
   erubis
+  geokit
   minitest
   pg
   puma
