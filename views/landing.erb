@@ -22,7 +22,15 @@
     </div>
 
     <div class="title">
-      <p id="sky3">Sky</p>
+      <p id="sky1">To</p>
+    </div>
+
+    <div class="title">
+      <p id="sky2">Sky</p>
+    </div>
+
+    <div class="title">
+      <p id="sky3"></p>
     </div>
 
   </div>
@@ -60,6 +68,25 @@
 <footer>
   <div class="credit">
     <a href="https://www.vecteezy.com" style="color: #F5EFBE">About /GROUND2SKY/</a  >
+  </div>
+  <div>
+    <div>
+      <%== yield_content :header_links %>
+    </div>
+    <% if session[:in_sign] == false && session[:username].nil? %>
+      <form action="/FlightTrackApp/users/sign" method="get">
+        <button type="submit" value="Sign in"><img src="/6606 - Male User.svg" id="user"></button>
+      </form>
+
+      <form action="/FlightTrackApp/users/sign" method="get">
+        <button class="attention" type="submit" value="Register"><img id="notepad" src="/6584 - Notepad.svg"></button>
+      </form>
+    <% elsif session[:username] %>
+        <p>Signed in as <%= session[:username] %></p>
+        <form action="/FlightTrackApp/users/signout" method="post">
+          <button type="submit" value="Sign out">Sign out</button>
+        </form>
+    <% end %>
   </div>
 </footer>
 
