@@ -5,6 +5,7 @@ require 'tilt/erubis'
 require 'bcrypt'
 require 'fileutils'
 require 'wikipedia'
+require 'geokit'
 
 require_relative 'users.rb'
 require_relative 'search.rb'
@@ -213,7 +214,30 @@ class FlightTrackApp < Sinatra::Base
     erb :routes
   end
 
-  post 'FlightTrackApp/searchroute' do
+  post '/FlightTrackApp/searchroute' do
+    from_iata = params[:from][0, 3].upcase
+    to_iata = params[:to][0, 3].upcase
+
+    coord_from = @search.latitude_longitude(from_iata)
+    coord_to = @search.latitude_longitude(to_iata)
+
+    unless coord_from && coord_to
+      session[:alert] = 'Route not found, please try again.'
+      halt erb :routes
+    end
+
+    geokit_from = Geokit::LatLng.new(*coord_from)
+    geokit_to = Geokit::LatLng.new(*coord_to)
+
+    distance = geokit_from.distance_to(geokit_to)
+    geokit_midpoint = geokit_from.midpoint_to(geokit_to)
+
+    @coordinate_from, @coordinate_to, @coordinate_midpoint =
+      [geokit_from, geokit_to, geokit_midpoint].map do |geokit|
+        [:lat, :lng].zip(geokit.to_a).to_h
+      end
+
+    erb :routes
   end
 
   get '/FlightTrackApp/userpage' do

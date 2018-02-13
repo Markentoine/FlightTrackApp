@@ -171,7 +171,7 @@ form {
 
 .title {
   display: flex;
-  flex: 1 1 50%;
+  flex: 1 1 33%;
   flex-direction: column;
   width: 25%;
   height: 28rem;
@@ -192,8 +192,9 @@ form {
 }
 
 #sky2{
-  margin-left: 8rem;
+  text-align: right;
   margin-top: -0.3rem;
+  margin-right: 0.1rem;
 }
 
 #sky1{
@@ -483,4 +484,8 @@ td {
 
 .search button {
   text-transform: uppercase;
+}
+
+#map {
+  height: 500px;
 }
