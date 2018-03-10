@@ -23,7 +23,8 @@ class Search
     city_query = ' AND city ILIKE $2'
 
     sql = <<~SQL
-      SELECT id, name, latitude, longitude
+      SELECT id, name,
+             latitude, longitude
         FROM airports
        WHERE country ILIKE $1
     SQL
@@ -38,8 +39,12 @@ class Search
 
   def query_airport_details(id)
     sql = <<~SQL
-      SELECT name, city, country, iata, icao,
-             latitude, longitude, altitude,timezone
+      SELECT name,
+             city, country,
+             iata, icao,
+             latitude, longitude,
+             altitude,
+             timezone
         FROM airports
        WHERE id = $1
     SQL
@@ -77,7 +82,9 @@ class Search
              ', ' ||
             city)
         FROM airports
-       WHERE iata ILIKE $1 OR name ILIKE $1 OR city ILIKE $1;
+       WHERE iata ILIKE $1
+          OR name ILIKE $1
+          OR city ILIKE $1;
     SQL
 
     query(sql, "#{string}%").column_values(0).compact
@@ -86,7 +93,11 @@ class Search
   def autocomplete_country_list(string)
     return [] if invalid_string?(string)
 
-    sql = "SELECT DISTINCT country FROM airports WHERE country ILIKE $1"
+    sql = <<~SQL
+           SELECT DISTINCT country
+             FROM airports
+            WHERE country ILIKE $1
+            SQL
 
     query(sql, "#{string}%").column_values(0).compact
   end
@@ -95,7 +106,8 @@ class Search
     sql = <<~SQL
       SELECT DISTINCT city
         FROM airports
-       WHERE country ILIKE $1 AND city ILIKE $2
+       WHERE country ILIKE $1
+         AND city ILIKE $2
     SQL
 
     query(sql, country,"#{city}%").column_values(0).compact
