@@ -24,8 +24,8 @@ class Search
 
     sql = <<~SQL
       SELECT id, name, latitude, longitude
-      FROM airports
-      WHERE country ILIKE $1
+        FROM airports
+       WHERE country ILIKE $1
     SQL
 
     if city.strip.empty?
@@ -40,8 +40,8 @@ class Search
     sql = <<~SQL
       SELECT name, city, country, iata, icao,
              latitude, longitude, altitude,timezone
-      FROM airports
-      WHERE id = $1
+        FROM airports
+       WHERE id = $1
     SQL
 
     query(sql, id).each.first
@@ -50,8 +50,8 @@ class Search
   def query_all_cities_with_airports_in_a_country(country)
     sql = <<~SQL
       SELECT city
-      FROM airports
-      WHERE country ILIKE $1
+        FROM airports
+       WHERE country ILIKE $1
     SQL
 
     query(sql, "#{country}%").values
@@ -60,7 +60,7 @@ class Search
   def query_locations_all_airports_world
       sql = <<~SQL
         SELECT latitude, longitude
-        FROM airports
+          FROM airports
       SQL
 
       query(sql).values
@@ -76,7 +76,7 @@ class Search
             name ||
              ', ' ||
             city)
-       FROM airports
+        FROM airports
        WHERE iata ILIKE $1 OR name ILIKE $1 OR city ILIKE $1;
     SQL
 
@@ -104,12 +104,13 @@ class Search
   def latitude_longitude(iata)
     sql = <<~SQL
       SELECT latitude, longitude
-        FROM airports WHERE iata = $1
+        FROM airports
+       WHERE iata = $1
     SQL
 
     result = query(sql, iata).values[0]
     return false if result.nil?
-    
+
     result.map(&:to_f)
   end
 
