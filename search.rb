@@ -20,13 +20,13 @@ class Search
   end
 
   def query_airports(country, city='')
-    city_query = ' AND city ILIKE $2'
+    city_query = ' AND LOWER(city) LIKE LOWER($2)'
 
     sql = <<~SQL
       SELECT id, name,
              latitude, longitude
         FROM airports
-       WHERE country ILIKE $1
+       WHERE LOWER(country) LIKE LOWER($1)
     SQL
 
     if city.strip.empty?
@@ -56,7 +56,7 @@ class Search
     sql = <<~SQL
       SELECT city
         FROM airports
-       WHERE country ILIKE $1
+       WHERE LOWER(country) LIKE LOWER($1)
     SQL
 
     query(sql, "#{country}%").values
@@ -82,9 +82,9 @@ class Search
              ', ' ||
             city)
         FROM airports
-       WHERE iata ILIKE $1
-          OR name ILIKE $1
-          OR city ILIKE $1;
+       WHERE LOWER(iata) LIKE LOWER($1)
+          OR LOWER(name) LIKE LOWER($1)
+          OR LOWER(city) LIKE LOWER($1);
     SQL
 
     query(sql, "#{string}%").column_values(0).compact
@@ -96,7 +96,7 @@ class Search
     sql = <<~SQL
            SELECT DISTINCT country
              FROM airports
-            WHERE country ILIKE $1
+            WHERE LOWER(country) LIKE LOWER($1)
             SQL
 
     query(sql, "#{string}%").column_values(0).compact
@@ -106,8 +106,8 @@ class Search
     sql = <<~SQL
       SELECT DISTINCT city
         FROM airports
-       WHERE country ILIKE $1
-         AND city ILIKE $2
+       WHERE LOWER(country) LIKE LOWER($1)
+         AND LOWER(city) LIKE LOWER($2)
     SQL
 
     query(sql, country,"#{city}%").column_values(0).compact
