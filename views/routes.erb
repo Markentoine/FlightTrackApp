@@ -1,71 +1,117 @@
 <section class="forms-input search">
   <form action="/FlightTrackApp/searchroute" method="post">
+    <fieldset>
     <legend>Search Routes</legend>
-    <div>
-      <label for="flightfrom">Flight from:</label>
-      <input id="flightfrom" type="search" name="from" placeholder="airport name or city" required />
-    </div>
+      <div>
+        <label for="flightfrom">Flight from:</label>
+        <input id="flightfrom" type="search" name="from" placeholder="airport name or city" required />
+      </div>
 
-    <div>
-      <label for="flightto">Flight to:</label>
-      <input id="flightto" type="search" name="to" placeholder="airport name or city" required />
-    </div>
+      <div>
+        <label for="flightto">Flight to:</label>
+        <input id="flightto" type="search" name="to" placeholder="airport name or city" required />
+      </div>
 
-    <div>
-      <button type="submit">Take off</button>
-    </div>
+      <div>
+        <button type="submit">Take off</button>
+      </div>
+    </fieldset>
   </form>
 </section>
 
-<section>
-  <% if @coordinate_to && @coordinate_from %>
+<% if @coordinate_to && @coordinate_from %>
+  <section>
     <div id="map"></div>
-  <% end %>
 
-  <script>
+    <script>
 
-    function initMap() {
-      var map = new google.maps.Map(document.getElementById('map'), {
-        center: <%== @coordinate_midpoint.to_json %>,
-        mapTypeId: 'terrain'
-      });
+      function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: <%== @coordinate_midpoint.to_json %>,
+          mapTypeId: 'terrain'
+        });
 
-      var marker1 = new google.maps.Marker({
-        position: <%== @coordinate_from.to_json %>,
-        map: map
-      });
+        var marker1 = new google.maps.Marker({
+          position: <%== @coordinate_from.to_json %>,
+          map: map
+        });
 
-      var marker2 = new google.maps.Marker({
-        position: <%== @coordinate_to.to_json %>,
-        map: map       
-      });
+        var marker2 = new google.maps.Marker({
+          position: <%== @coordinate_to.to_json %>,
+          map: map       
+        });
 
-      var bounds = new google.maps.LatLngBounds();
-      bounds.extend(marker1.getPosition());
-      bounds.extend(marker2.getPosition());
+        var bounds = new google.maps.LatLngBounds();
+        bounds.extend(marker1.getPosition());
+        bounds.extend(marker2.getPosition());
 
-      map.fitBounds(bounds);
+        map.fitBounds(bounds);
 
-      var flightPlanCoordinates = [
-        <%== @coordinate_from.to_json %>,
-        <%== @coordinate_to.to_json %>
-      ];
-      var flightPath = new google.maps.Polyline({
-        path: flightPlanCoordinates,
-        geodesic: true,
-        strokeColor: '#FF0000',
-        strokeOpacity: 1.0,
-        strokeWeight: 2
-      });
+        var flightPlanCoordinates = [
+          <%== @coordinate_from.to_json %>,
+          <%== @coordinate_to.to_json %>
+        ];
+        var flightPath = new google.maps.Polyline({
+          path: flightPlanCoordinates,
+          geodesic: true,
+          strokeColor: '#FF0000',
+          strokeOpacity: 1.0,
+          strokeWeight: 2
+        });
 
-      flightPath.setMap(map);
-    }
-  </script>
+        flightPath.setMap(map);
+      }
+    </script>
 
-  <script async defer
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPQ2gVCPb7ymXg50xgVe-hRlFNPy_AWBs&callback=initMap">
-  </script>
-</section>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPQ2gVCPb7ymXg50xgVe-hRlFNPy_AWBs&callback=initMap">
+    </script>
+  </section>
+
+  <section class="info">
+    <table>
+      <thead>
+        <tr>
+          <th scope="col" colspan="3">Route Info</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <th scope="row" rowspan="2"><%= @from_iata %></th>
+          <td>Latitude</td>
+          <td><%= @coord_from[0] %></td>
+        </tr>
+
+        <tr>
+          <td>Longitude</td>
+          <td><%= @coord_from[1] %></td>
+        </tr>
+
+        <tr>
+          <th scope="row" rowspan="2"><%= @to_iata %></th>
+          <td>Latitude</td>
+          <td><%= @coord_to[0] %></td>
+        </tr>
+
+        <tr>
+          <td>Longitude</td>
+          <td><%= @coord_to[1] %></td>
+        </tr>
+
+        <tr>
+          <td colspan="2">Distance</td>
+          <td><%= @distance.round(2) %> miles</td>
+        </tr>
+
+        <tr>
+          <td colspan="2">Average Flight Time</td>
+          <td><%= (@distance/546).round(2) %> hours</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+<% end %>
 
 <script>
   $(document).ready(function() {
