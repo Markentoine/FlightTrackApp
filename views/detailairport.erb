@@ -1,69 +1,68 @@
-<section>
-  <h1>
-    Detailed Information about <%= @airport_infos["name"] %> in <%= @airport_infos["city"] %> (<%= @airport_infos["country"] %>)
-  </h1>
+<h1>
+  Detailed Information about <%= @airport_infos["name"] %> in <%= @airport_infos["city"] %> (<%= @airport_infos["country"] %>)
+</h1>
 
-  <table>
-    <thead>
-    	<tr>
-    		<th scope="col" colspan="2"><%= @airport_infos["name"] %></th>
-    	</tr>
-    </thead>
+<table>
+  <thead>
+  	<tr>
+  		<th scope="col" colspan="2"><%= @airport_infos["name"] %> Info</th>
+  	</tr>
+  </thead>
 
-    <tbody>
-    	<tr>
-    		<td>IATA</td>
-    		<td><%= @airport_infos["iata"] %></td>
-    	</tr>
-    	<tr>
-    		<td>ICAO</td>
-    		<td><%= @airport_infos["icao"] %></td>
-    	</tr>
-    	<tr>
-    		<td>Latitude</td>
-    		<td><%= @airport_infos["latitude"] %></td>
-    	</tr>
-    	<tr>
-    		<td>Longitude</td>
-    		<td><%= @airport_infos["longitude"] %></td>
-    	</tr>
-    	<tr>
-    		<td>Altitude</td>
-    		<td><%= @airport_infos["altitude"] %> ft.</td>
-    	</tr>
-    	<tr>
-    		<td>Time zone</td>
-    		<td><%= @airport_infos["timezone"] %> UTC</td>
-    	</tr>
-    </tbody>
-  </table>
+  <tbody>
+  	<tr>
+  		<td>IATA</td>
+  		<td><%= @airport_infos["iata"] || "-" %></td>
+  	</tr>
+  	<tr>
+  		<td>ICAO</td>
+  		<td><%= @airport_infos["icao"] %></td>
+  	</tr>
+  	<tr>
+  		<td>Latitude</td>
+  		<td><%= @airport_infos["latitude"] %></td>
+  	</tr>
+  	<tr>
+  		<td>Longitude</td>
+  		<td><%= @airport_infos["longitude"] %></td>
+  	</tr>
+  	<tr>
+  		<td>Altitude</td>
+  		<td><%= @airport_infos["altitude"] %> ft.</td>
+  	</tr>
+  	<tr>
+  		<td>Time zone</td>
+  		<td><%= @airport_infos["timezone"] %> UTC</td>
+  	</tr>
+  </tbody>
+</table>
 
-  <div>
-  	<iframe src="https://www.google.com/maps/embed/v1/view?key=AIzaSyCm-fNKdjRs0I-tsRVNZJshyA5qWfFsgng&center=
-      <%= @airport_infos["latitude"] %>,
-      <%= @airport_infos["longitude"] %>
-      &zoom=14&maptype=satellite" 
-      width=800 height=500></iframe> 
-  </div>
+<div class="map">
+	<iframe src="https://www.google.com/maps/embed/v1/view?key=AIzaSyCm-fNKdjRs0I-tsRVNZJshyA5qWfFsgng&center=
+    <%= @airport_infos["latitude"] %>,
+    <%= @airport_infos["longitude"] %>
+    &zoom=14&maptype=satellite" 
+    width=800 height=500></iframe> 
+</div>
 
-  <article>
-    <p>
-      <%= @airport_summary %>
-    </p>
-  </article>
+<article>
+  <p>
+    <%= @airport_summary %>
+  </p>
+</article>
 
-  <section>
-    <% @airport_images.each do |image_url| %>
-         <% if image_url.match(/.jpg/) %>
-           <ul>
-             <li>
-               <img src="<%= image_url %>" width=200 height=140>
-             </li>
-           </ul>
-         <% end %>
+<section class="images">
+  <% @airport_images.each do |image_url| %>
+       <% if image_url.match(/.jpg/) %>
+         <ul>
+           <li>
+             <img src="<%= image_url %>" width=200 height=140>
+           </li>
+         </ul>
        <% end %>
-    <p>Source : Wikipedia</p>
-  </section>
+     <% end %>
+  <p>Source : Wikipedia</p>
+</section>
 
 <% content_for :header_links do %>
   <form action="/FlightTrackApp/airports" method="get">  <button type="submit">New Airport Research</button>

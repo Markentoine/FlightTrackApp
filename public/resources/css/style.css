@@ -11,8 +11,14 @@ header{
   border-bottom: 0.3rem solid #F5EFBE;
 }
 
-header h1{
+header h1 {
   font-size: 3rem;
+}
+
+h1 {
+  text-align: center;
+  font-size: 1.8rem;
+  margin: 30px auto;
 }
 
 nav {
@@ -152,9 +158,9 @@ form {
   margin-right: .5rem;
 }
 
-/**=============
+/*==============
   Landing Page
-=============**/
+==============*/
 
 .landing {
   display: flex;
@@ -300,9 +306,9 @@ footer button{
   border: none;
 }
 
-/**=============
+/*=============
   Autocomplete
-=============**/
+=============*/
 .ui-autocomplete {
   font-size: 1.1em;
   font-family: 'Questrial', sans-serif;
@@ -330,9 +336,9 @@ footer button{
 	margin-left: auto;
 }
 
-/**==============
+/*===============
  Sign-in/Sign-up
-==============**/
+===============*/
 
 .forms-input form {
   display: block;
@@ -396,9 +402,9 @@ footer button{
   background-color: #98984B;
 }
 
-/**=============
-  Airports
-=============**/
+/*=============
+    Airports
+=============*/
 .flight-search{
   display: flex;
 }
@@ -458,12 +464,12 @@ form.airportsearch button {
   background-color: #9D976A;
 }
 
-/**=============
-  Detailed Infos
-=============**/
+/*==============
+      Table
+==============*/
 table {
   width: 500px;
-  margin: 0 auto;
+  margin: 0 auto 20px auto;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
 }
 
@@ -477,6 +483,8 @@ th {
 }
 
 thead tr th {
+  padding: 10px;
+  font-size: 18px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
@@ -513,9 +521,36 @@ td {
   padding: 1em;
 }
 
-/**=============
+/*===============
+  Detailed Infos
+===============*/
+article,
+.images {
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+article p {
+  text-align: justify;
+  line-height: 24px;
+  margin-bottom: 30px;
+}
+
+.map {
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+iframe {
+  display: block;
+  width: 100% !important;
+  height: 500px !important;
+}
+
+
+/*=============
   Route Search
-=============**/
+=============*/
 .search form {
   width: 660px;
 }
