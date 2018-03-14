@@ -30,23 +30,34 @@
       </div>
 
       <nav>
-        <div>
-          <%== yield_content :header_links %>
-        </div>
-        <% if session[:in_sign] == false && session[:username].nil? %>
-          <form action="/FlightTrackApp/users/sign" method="get">
-            <button type="submit" value="Sign in">Sign in</button>
-          </form>
+        <ul>
+          <li>
+            <%== yield_content :header_links %>
+          </li>
 
-          <form action="/FlightTrackApp/users/sign" method="get">
-            <button class="attention" type="submit" value="Register">Register</button>
-          </form>
-        <% elsif session[:username] %>
-            <p>Signed in as <%= session[:username] %></p>
-            <form action="/FlightTrackApp/users/signout" method="post">
-              <button type="submit" value="Sign out">Sign out</button>
-            </form>
-        <% end %>
+          <% if session[:in_sign] == false && session[:username].nil? %>
+            <li>
+              <form action="/FlightTrackApp/users/sign" method="get">
+                <button type="submit" value="Sign in">Sign in</button>
+              </form>
+            </li>
+
+            <li>
+              <form action="/FlightTrackApp/users/sign" method="get">
+                <button class="attention" type="submit" value="Register">Register</button>
+              </form>
+            </li>
+          <% elsif session[:username] %>
+            <li>
+              <p>Signed in as <%= session[:username] %></p>
+            </li>
+
+            <li>
+              <form action="/FlightTrackApp/users/signout" method="post">
+                <button type="submit" value="Sign out">Sign out</button>
+              </form>
+            </li>
+          <% end %>
       </nav>
     </div>
 
