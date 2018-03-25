@@ -1,13 +1,18 @@
-<div><h1>Detailed Informations about <%= @airport_infos["name"] %> in <%= @airport_infos["city"] %> (<%= @airport_infos["country"] %>)</h1></div>
-<div>
-  <table>
+<h1>
+  Detailed Information about <%= @airport_infos["name"] %> in <%= @airport_infos["city"] %> (<%= @airport_infos["country"] %>)
+</h1>
+
+<table>
+  <thead>
   	<tr>
-  		<th></th>
-  		<th><%= @airport_infos["name"] %></th>
+  		<th scope="col" colspan="2"><%= @airport_infos["name"] %> Info</th>
   	</tr>
+  </thead>
+
+  <tbody>
   	<tr>
   		<td>IATA</td>
-  		<td><%= @airport_infos["iata"] %></td>
+  		<td><%= @airport_infos["iata"] || "-" %></td>
   	</tr>
   	<tr>
   		<td>ICAO</td>
@@ -29,10 +34,10 @@
   		<td>Time zone</td>
   		<td><%= @airport_infos["timezone"] %> UTC</td>
   	</tr>
-  </table>
-</div>
+  </tbody>
+</table>
 
-<div>
+<div class="map">
 	<iframe src="https://www.google.com/maps/embed/v1/view?key=AIzaSyCm-fNKdjRs0I-tsRVNZJshyA5qWfFsgng&center=
     <%= @airport_infos["latitude"] %>,
     <%= @airport_infos["longitude"] %>
@@ -40,14 +45,14 @@
     width=800 height=500></iframe> 
 </div>
 
-
-<div>
-  <textarea row=50 cols="50">
+<article>
+  <p>
     <%= @airport_summary %>
-  </textarea>
-</div>
+  </p>
+</article>
 
-<div><% @airport_images.each do |image_url| %>
+<section class="images">
+  <% @airport_images.each do |image_url| %>
        <% if image_url.match(/.jpg/) %>
          <ul>
            <li>
@@ -57,8 +62,9 @@
        <% end %>
      <% end %>
   <p>Source : Wikipedia</p>
-</div>
+</section>
 
 <% content_for :header_links do %>
-  <form action="/FlightTrackApp/airports" method="get"><button type="submit">New Airport Research</button></a>
+  <form action="/FlightTrackApp/airports" method="get">  <button type="submit">New Airport Research</button>
+  </form>
 <% end %>

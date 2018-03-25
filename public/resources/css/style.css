@@ -11,11 +11,17 @@ header{
   border-bottom: 0.3rem solid #F5EFBE;
 }
 
-header h1{
+header h1 {
   font-size: 3rem;
 }
 
-nav{
+h1 {
+  text-align: center;
+  font-size: 1.8rem;
+  margin: 30px auto;
+}
+
+nav {
   display: flex;
   margin-left: auto;
 }
@@ -87,6 +93,10 @@ div.message p.alert {
   background-color: #F797BA;
 }
 
+nav li {
+  display: inline-block;
+}
+
 nav button {
   color: #F0F0F0;
   font-family: 'Questrial', sans-serif;
@@ -148,9 +158,9 @@ form {
   margin-right: .5rem;
 }
 
-/**=============
+/*==============
   Landing Page
-=============**/
+==============*/
 
 .landing {
   display: flex;
@@ -296,9 +306,9 @@ footer button{
   border: none;
 }
 
-/**=============
+/*=============
   Autocomplete
-=============**/
+=============*/
 .ui-autocomplete {
   font-size: 1.1em;
   font-family: 'Questrial', sans-serif;
@@ -326,9 +336,9 @@ footer button{
 	margin-left: auto;
 }
 
-/**==============
+/*===============
  Sign-in/Sign-up
-==============**/
+===============*/
 
 .forms-input form {
   display: block;
@@ -392,9 +402,9 @@ footer button{
   background-color: #98984B;
 }
 
-/**=============
-  Airports
-=============**/
+/*=============
+    Airports
+=============*/
 .flight-search{
   display: flex;
 }
@@ -454,24 +464,93 @@ form.airportsearch button {
   background-color: #9D976A;
 }
 
-/**=============
-  Detailed Infos
-=============**/
+/*==============
+      Table
+==============*/
+table {
+  width: 500px;
+  margin: 0 auto 20px auto;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+}
 
-table, th, td {
-  border: 1px solid grey;
-  background-color: #F7FFE5;
+tr {
+  background-color: #F4F6E1;
   color: black;
+}
+
+th {
+  font-weight: bold;
+}
+
+thead tr th {
+  padding: 10px;
+  font-size: 18px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 10px;
+}
+
+tbody tr:last-child td:first-child {
+  border-bottom-left-radius: 10px;
+}
+
+td, th {
+  border-right: 1px solid #BEBBAE;
+  border-bottom: 1px solid #BEBBAE;
+  vertical-align: middle;
+}
+
+tr td:last-child,
+tr th:last-child {
+  border-right: none;
+}
+
+tr:last-child td,
+tbody tr:last-child th {
+  border-bottom: none;
+}
+
+tr:nth-child(even) {
+  background-color: #E8E4D4;
 }
 
 td {
   padding: 1em;
 }
 
-/**=============
-  Route Search
-=============**/
+/*===============
+  Detailed Infos
+===============*/
+article,
+.images {
+  margin: 0 auto;
+  padding: 0 40px;
+}
 
+article p {
+  text-align: justify;
+  line-height: 24px;
+  margin-bottom: 30px;
+}
+
+.map {
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+iframe {
+  display: block;
+  width: 100% !important;
+  height: 500px !important;
+}
+
+
+/*=============
+  Route Search
+=============*/
 .search form {
   width: 660px;
 }
@@ -488,4 +567,8 @@ td {
 
 #map {
   height: 500px;
+}
+
+section {
+  margin-bottom: 20px;
 }
